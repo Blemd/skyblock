@@ -1,0 +1,7 @@
+MySQL:
+ Host: 'placeholder'
+ Port: '3306'
+ Database: 'placeholder'
+ Table: 'skyblock'
+ Username: 'placeholder'
+ Password: 'placeholder'
