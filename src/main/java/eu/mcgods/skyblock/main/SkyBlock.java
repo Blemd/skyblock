@@ -7,6 +7,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import eu.mcgods.skyblock.database.MySQL;
 import eu.mcgods.skyblock.listener.JoinListener;
 import eu.mcgods.skyblock.listener.QuitListener;
+import eu.mcgods.skyblock.listener.SkyBlockMenuItemListener;
+import eu.mcgods.skyblock.listener.SkyBlockMenuListener;
 
 public class SkyBlock extends JavaPlugin {
 
@@ -39,6 +41,8 @@ public class SkyBlock extends JavaPlugin {
 		PluginManager pm = Bukkit.getPluginManager();
 		pm.registerEvents(new JoinListener(), this);
 		pm.registerEvents(new QuitListener(), this);
+		pm.registerEvents(new SkyBlockMenuItemListener(), this);
+		pm.registerEvents(new SkyBlockMenuListener(), this);
 	}
 	
 	private void loadCommands() {
