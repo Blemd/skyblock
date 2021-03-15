@@ -1,10 +1,12 @@
 package eu.mcgods.skyblock.main;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import eu.mcgods.skyblock.database.MySQL;
+import eu.mcgods.skyblock.database.PlayerCache;
 import eu.mcgods.skyblock.listener.JoinListener;
 import eu.mcgods.skyblock.listener.QuitListener;
 import eu.mcgods.skyblock.listener.SkyBlockMenuItemListener;
@@ -30,10 +32,21 @@ public class SkyBlock extends JavaPlugin {
 		
 		this.loadListener();
 		this.loadCommands();
+		
+		for(Player allOnline : Bukkit.getOnlinePlayers()) {
+			new PlayerCache(allOnline);
+		}
+		System.out.println(this.prefix + "§cCreated §e" + Bukkit.getOnlinePlayers().size() + " §cnew PlayerCache's!");
 	}
 	
 	@Override
 	public void onDisable() {
+		
+		for(Player allOnline : Bukkit.getOnlinePlayers()) {
+			PlayerCache.deleteUserCacheData(allOnline.getUniqueId());
+		}
+		System.out.println(this.prefix + "§cDeleted §e" + Bukkit.getOnlinePlayers().size() + " §cexisting PlayerCache's!");
+		
 		this.mySQL.disconnect();
 	}
 	
