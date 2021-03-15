@@ -1,9 +1,14 @@
 package eu.mcgods.skyblock.database;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -13,13 +18,15 @@ public class PlayerCache {
 	
 	private InventoryAPI invAPI = new InventoryAPI();
 	private static SkyCoinsAPI coinsAPI = new SkyCoinsAPI();
+	private static CoopAPI coopAPI = new CoopAPI();
 	
 	//private static Map<String, Integer> islandbank = new HashMap<String, Integer>();
 	private static Map<UUID, Integer> skyCoins = new HashMap<UUID, Integer>();
 	private static Map<UUID, ItemStack[]> itemContents = new HashMap<UUID, ItemStack[]>();
 	private static Map<UUID, ItemStack[]> armorContents = new HashMap<UUID, ItemStack[]>();
 	//private static Map<UUID, List<String>> quests = new HashMap<UUID, List<String>>();
-	//private static Map<String, List<UUID>> coop = new HashMap<String, List<UUID>>();
+	
+	private static Map<UUID, List<String>> coop = new HashMap<UUID, List<String>>();
 	
 	public PlayerCache(Player p) {
 		
@@ -31,7 +38,16 @@ public class PlayerCache {
 		ItemStack[] playerArmor = InventorySave.itemStackArrayFromBase64(loadInventory[1]);
 		//playerBank
 		//playerQuests
-		//coop
+		
+		try {
+		String[] coopMember = coopAPI.getCoopPartners(p.getUniqueId(), p.getUniqueId().toString()).split("\\;");
+		
+		List<String> coopList = new ArrayList<String>();
+		coopList.addAll(Arrays.asList(coopMember));
+		
+		coop.put(uuid, coopList);
+		} catch (NullPointerException nullPointerException) {
+		}
 		
 		skyCoins.put(uuid, playerSkyCoins);
 		itemContents.put(uuid, playerItems);
@@ -44,6 +60,10 @@ public class PlayerCache {
 	public static void deleteUserCacheData(UUID uuid) {
 		if(skyCoins.containsKey(uuid)) {
 			coinsAPI.setSkyCoins(uuid, getSkyCoinsCache(uuid));
+		}
+		
+		if(coop.containsKey(uuid)) {
+			coopAPI.setCoopPartners(uuid, getCoopPlayerCacheNames(uuid));
 		}
 		
 		skyCoins.remove(uuid);
@@ -91,5 +111,50 @@ public class PlayerCache {
 
 	public static void setArmorContents(UUID uuid, ItemStack[] itemStack) {
 		armorContents.put(uuid, itemStack);
+	}
+	
+	public static void addCoopPlayerCache(UUID uuid, String targetUUID) {
+		if(!(coop.size() >= 4)) {
+			coop.get(uuid).add(targetUUID);			
+		}
+	}
+	
+	public static void removeCoopPlayerCache(UUID uuid, String targetUUID) {
+		coop.get(uuid).remove(targetUUID);
+	}
+	
+	public static Integer getCoopPlayerCacheSize(UUID uuid) {
+		return coop.get(uuid).size();
+	}
+	
+	public static List<String> getCoopPlayerCacheNames(UUID uuid) {
+		
+		List<Player> onlinePlayerList = new ArrayList<Player>();
+		List<OfflinePlayer> offlinePlayerList = new ArrayList<OfflinePlayer>();
+		
+		List<String> userNames = new ArrayList<String>();
+		
+		for(int i = 0; i < coop.get(uuid).size(); i++) {
+			UUID playerUUID = UUID.fromString(coop.get(uuid).get(i));
+			
+			Player player = Bukkit.getPlayer(playerUUID);
+			if(player != null) {
+				onlinePlayerList.add(player);
+			} else {
+				OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(playerUUID);
+				offlinePlayerList.add(offlinePlayer);
+			}
+		}
+		if(onlinePlayerList != null) {
+			for(int i = 0; i < onlinePlayerList.size(); i++) {
+				userNames.add(onlinePlayerList.get(i).getName());
+			}
+		}
+		if(offlinePlayerList != null) {
+			for(int i = 0; i < offlinePlayerList.size(); i++) {
+				userNames.add(offlinePlayerList.get(i).getName());
+			}
+		}
+		return userNames;
 	}
 }

@@ -3,11 +3,14 @@ package eu.mcgods.skyblock.utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.entity.Player;
 
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.WorldEdit;
@@ -22,8 +25,12 @@ import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.session.ClipboardHolder;
 
+import eu.mcgods.skyblock.main.SkyBlock;
+
 public class IslandGenerator {
 
+	private static SkyBlock m = SkyBlock.getInstance();
+	
 	@SuppressWarnings("deprecation")
 	public static World generateIsland(String worldName, Difficulty difficulty, Double islandSize) throws IOException, WorldEditException{
 
@@ -43,7 +50,7 @@ public class IslandGenerator {
 		int locY = playerWorld.getSpawnLocation().getBlockY();
 		int locZ = playerWorld.getSpawnLocation().getBlockZ();
 		
-		File schematic = new File("plugins/WorldEdit/schematics/Island.schematic");
+		File schematic = new File("plugins/WorldEdit/schematics/island.schematic");
 		
 		Clipboard clipboard = null;
 		ClipboardFormat format = ClipboardFormats.findByFile(schematic);
@@ -57,5 +64,28 @@ public class IslandGenerator {
 			Operations.complete(operation);
 		}
 		return playerWorld;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static void setIslandWarpPoint(World world, UUID uuid, Integer locX, Integer locY, Integer locZ) {
+		try {
+
+			Player p = Bukkit.getPlayer(uuid);
+
+			if (world.getName().equalsIgnoreCase(uuid.toString())) {
+				if (!p.isFlying() && !p.isSneaking() && p.isOnGround()) {
+					world.setSpawnLocation(locX, locY, locZ);
+					p.sendMessage(m.getPrefix() + "Dein Insel Warp-Punkt, wurde auf X:§e" + locX + "§7Y:§e" + locY + "§7Z:§e" + locZ + " §7gesetzt.");
+					p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
+				} else {
+					p.sendMessage(m.getPrefix() + "Du darfst dabei nicht in der Luft sein.");
+					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+				}
+			} else {
+				p.sendMessage(m.getPrefix() + "Dafür musst du auf deiner eigenen Insel sein.");
+				p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+			}
+		} catch (Exception exception) {
+		}
 	}
 }

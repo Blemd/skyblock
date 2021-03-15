@@ -95,6 +95,19 @@ public class MySQL {
 			return false;
 		}
 	}
+	
+	public boolean checkIfUserHasAlReadyCoopData(UUID uuid) {
+		try {
+			PreparedStatement pst = this.connection.prepareStatement("SELECT WORLD FROM " + this.table + "_coop WHERE WORLD = ?");
+			pst.setString(1, uuid.toString());
+			ResultSet rs = pst.executeQuery();
+			
+			return rs.next();
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+			return false;
+		}
+	}
 
 	public String getHost() {
 		return host;

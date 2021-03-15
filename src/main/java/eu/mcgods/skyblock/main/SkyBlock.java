@@ -5,8 +5,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import eu.mcgods.skyblock.commands.CoopCommand;
 import eu.mcgods.skyblock.database.MySQL;
 import eu.mcgods.skyblock.database.PlayerCache;
+import eu.mcgods.skyblock.listener.CoopProtectionListener;
+import eu.mcgods.skyblock.listener.IslandManageListener;
+import eu.mcgods.skyblock.listener.IslandNpcListener;
 import eu.mcgods.skyblock.listener.JoinListener;
 import eu.mcgods.skyblock.listener.QuitListener;
 import eu.mcgods.skyblock.listener.SkyBlockMenuItemListener;
@@ -56,9 +60,13 @@ public class SkyBlock extends JavaPlugin {
 		pm.registerEvents(new QuitListener(), this);
 		pm.registerEvents(new SkyBlockMenuItemListener(), this);
 		pm.registerEvents(new SkyBlockMenuListener(), this);
+		pm.registerEvents(new IslandNpcListener(), this);
+		pm.registerEvents(new CoopProtectionListener(), this);
+		pm.registerEvents(new IslandManageListener(), this);
 	}
 	
 	private void loadCommands() {
+		getCommand("coop").setExecutor(new CoopCommand());
 	}
 	
 	private void loadConfig() {
