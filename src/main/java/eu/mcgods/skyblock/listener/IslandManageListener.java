@@ -35,16 +35,12 @@ public class IslandManageListener implements Listener {
 					}
 				} else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§eCoop-Spielerliste")) {
 					if (e.getCurrentItem().getType().equals(Material.PAPER)) {
-						List<String> playernames = null;
-						try {
-							playernames = PlayerCache.getCoopPlayerCacheNames(p.getUniqueId());				
-						} catch (NullPointerException nullPointerException) {
+						if(PlayerCache.getCoopPlayerCacheSize(p.getUniqueId()) != null) {
+							invBuilder.loadSkyBlockMenu_IslandManage_CoopList(p);							
+						} else {
 							p.closeInventory();
-							p.sendMessage(m.getPrefix() + "Du hast derzeit keine Spieler zu deiner Insel hinzugefügt.");
+							p.sendMessage(m.getPrefix() + "Du hast derzeit noch keine Spieler hinzugefügt.");
 							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
-						}
-						if(playernames != null) {							
-							invBuilder.loadSkyBlockMenu_IslandManage_CoopList(p);
 						}
 					}
 				} else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§ePvP")) {

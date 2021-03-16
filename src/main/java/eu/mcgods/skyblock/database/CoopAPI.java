@@ -8,10 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
-
 import eu.mcgods.skyblock.main.SkyBlock;
 
 public class CoopAPI {
@@ -103,7 +99,6 @@ public class CoopAPI {
 		return false;
 	}
 	
-	@SuppressWarnings("deprecation")
 	public void setCoopPartners(UUID uuid, List<String> playerList) {
 		if(this.mysql.checkIfUserHasAlReadyCoopData(uuid)) {
 			try {
@@ -114,14 +109,7 @@ public class CoopAPI {
 				playerArray.addAll(playerList);
 				
 				for(int i = 0; i < playerArray.size(); i++) {
-					Player player = Bukkit.getPlayer(playerArray.get(i));
 					list += playerArray.get(i) + ";";
-					if(player != null) {
-						list = list + player.getUniqueId().toString() + ";";
-					} else {
-						OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(playerArray.get(i));
-						list += list + offlinePlayer + ";";
-					}
 				}
 				
 				PreparedStatement pst = this.mysql.getConnection().prepareStatement("UPDATE " + this.mysql.getTable() + "_coop SET memberlist = ? WHERE world = ?");
@@ -141,14 +129,7 @@ public class CoopAPI {
 				playerArray.addAll(playerList);
 				
 				for(int i = 0; i < playerArray.size(); i++) {
-					Player player = Bukkit.getPlayer(playerArray.get(i));
 					list += playerArray.get(i) + ";";
-					if(player != null) {
-						list = list + player.getUniqueId().toString() + ";";
-					} else {
-						OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(playerArray.get(i));
-						list += list + offlinePlayer + ";";
-					}
 				}
 				
 				PreparedStatement pst = this.mysql.getConnection().prepareStatement("INSERT INTO " + this.mysql.getTable() + "_coop(world, memberlist) VALUES ('" + uuid.toString() + "', '" + list + "')");

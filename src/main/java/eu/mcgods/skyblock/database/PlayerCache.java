@@ -63,9 +63,10 @@ public class PlayerCache {
 		}
 		
 		if(coop.containsKey(uuid)) {
-			coopAPI.setCoopPartners(uuid, getCoopPlayerCacheNames(uuid));
+			coopAPI.setCoopPartners(uuid, coop.get(uuid));
 		}
 		
+		coop.remove(uuid);
 		skyCoins.remove(uuid);
 		itemContents.remove(uuid);
 		armorContents.remove(uuid);
@@ -114,9 +115,13 @@ public class PlayerCache {
 	}
 	
 	public static void addCoopPlayerCache(UUID uuid, String targetUUID) {
-		if(!(coop.size() >= 4)) {
+		if(!(coop.get(uuid).size() >= 4) && !coop.get(uuid).contains(targetUUID)) {
 			coop.get(uuid).add(targetUUID);			
 		}
+	}
+	
+	public static void setCoopPlayerCache(UUID uuid, String targetUUID) {
+		coop.put(uuid, Arrays.asList(targetUUID));
 	}
 	
 	public static void removeCoopPlayerCache(UUID uuid, String targetUUID) {
@@ -124,7 +129,22 @@ public class PlayerCache {
 	}
 	
 	public static Integer getCoopPlayerCacheSize(UUID uuid) {
-		return coop.get(uuid).size();
+		try {			
+			return coop.get(uuid).size();
+		} catch(NullPointerException nullPointerException) {
+			return null;
+		}
+	}
+	
+	public static List<String> getCoopPlayerCacheUUIDs(UUID uuid) {
+		
+		try {
+			List<String> userUUIDS = new ArrayList<String>();
+			userUUIDS.addAll(coop.get(uuid));
+			return userUUIDS;
+		} catch (NullPointerException nullPointerException) {
+			return null;
+		}
 	}
 	
 	public static List<String> getCoopPlayerCacheNames(UUID uuid) {
@@ -134,6 +154,7 @@ public class PlayerCache {
 		
 		List<String> userNames = new ArrayList<String>();
 		
+		try {
 		for(int i = 0; i < coop.get(uuid).size(); i++) {
 			UUID playerUUID = UUID.fromString(coop.get(uuid).get(i));
 			
@@ -145,6 +166,10 @@ public class PlayerCache {
 				offlinePlayerList.add(offlinePlayer);
 			}
 		}
+		} catch (NullPointerException nullPointerException) {
+			return null;
+		}
+		
 		if(onlinePlayerList != null) {
 			for(int i = 0; i < onlinePlayerList.size(); i++) {
 				userNames.add(onlinePlayerList.get(i).getName());

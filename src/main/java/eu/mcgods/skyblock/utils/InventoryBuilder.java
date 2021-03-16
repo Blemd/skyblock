@@ -75,7 +75,7 @@ public class InventoryBuilder {
 			}
 		}
 		
-		List<String> coopMember = PlayerCache.getCoopPlayerCacheNames(p.getUniqueId());
+		List<String> coopMember = PlayerCache.getCoopPlayerCacheUUIDs(p.getUniqueId());
 
 		ArrayList<String> coopList = new ArrayList<String>();
 		coopList.addAll(coopMember);
@@ -152,8 +152,7 @@ public class InventoryBuilder {
 						itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
 			}
 		}
-		this.islandNpcMenu.setItem(4, itemBuilder.BuildCustomSkullWithLore("", "§eInsel-Erstellen",
-				"§7➥ Erstelle deine eigene Insel für §61000 SkyCoins§7."));
+		this.islandNpcMenu.setItem(4, itemBuilder.BuildCustomSkullWithLore("http://textures.minecraft.net/texture/4528ed45802400f465b5c4e3a6b7a9f2b6a5b3d478b6fd84925cc5d988391c7d", "§eInsel-Erstellen", "§7➥ Erstelle deine eigene Insel für §61000 SkyCoins§7."));
 		p.openInventory(islandNpcMenu);
 	}
 }
