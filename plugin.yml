@@ -6,3 +6,4 @@ main: eu.mcgods.skyblock.main.SkyBlock
 
 commands:
   coop:
+  visit:
