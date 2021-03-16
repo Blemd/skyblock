@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
+import org.bukkit.GameRule;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -45,6 +46,7 @@ public class IslandGenerator {
 		playerWorld.setDifficulty(difficulty);
 		playerWorld.getWorldBorder().setCenter(playerWorld.getSpawnLocation());
 		playerWorld.getWorldBorder().setSize(islandSize);
+		playerWorld.setGameRule(GameRule.KEEP_INVENTORY, true);
 		
 		int locX = playerWorld.getSpawnLocation().getBlockX();
 		int locY = playerWorld.getSpawnLocation().getBlockY();
