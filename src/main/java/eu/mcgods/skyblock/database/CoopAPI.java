@@ -103,13 +103,15 @@ public class CoopAPI {
 		if(this.mysql.checkIfUserHasAlReadyCoopData(uuid)) {
 			try {
 				
-				String list = "";
+				String list = null;
 				
 				ArrayList<String> playerArray = new ArrayList<String>();
 				playerArray.addAll(playerList);
 				
-				for(int i = 0; i < playerArray.size(); i++) {
-					list += playerArray.get(i) + ";";
+				if(playerArray != null) {
+					for(int i = 0; i < playerArray.size(); i++) {
+						list = playerArray.get(i) + ";";
+					}	
 				}
 				
 				PreparedStatement pst = this.mysql.getConnection().prepareStatement("UPDATE " + this.mysql.getTable() + "_coop SET memberlist = ? WHERE world = ?");
@@ -123,13 +125,15 @@ public class CoopAPI {
 		} else {
 			try {
 				
-				String list = "";
+				String list = null;
 				
 				ArrayList<String> playerArray = new ArrayList<String>();
 				playerArray.addAll(playerList);
 				
+				if(playerArray != null) {
 				for(int i = 0; i < playerArray.size(); i++) {
-					list += playerArray.get(i) + ";";
+					list = playerArray.get(i) + ";";
+					}
 				}
 				
 				PreparedStatement pst = this.mysql.getConnection().prepareStatement("INSERT INTO " + this.mysql.getTable() + "_coop(world, memberlist) VALUES ('" + uuid.toString() + "', '" + list + "')");

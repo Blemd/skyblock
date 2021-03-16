@@ -20,6 +20,7 @@ public class InventoryBuilder {
 	private Inventory skyBlockMenu = Bukkit.createInventory(null, 6 * 9, "§a§lSkyblock-Menü");
 	private Inventory skyBlockMenu_islandManage = Bukkit.createInventory(null, 9, "§2Insel-Verwalten");
 	private Inventory skyBlockMenu_islandManage_CoopList = Bukkit.createInventory(null, 9, "§2Insel-Verwalten");
+	private Inventory skyblockMenu_islandManage_CoopRemove = Bukkit.createInventory(null, 9, "§2Insel-Verwalten");
 	private Inventory islandNpcMenu = Bukkit.createInventory(null, 9, "§aInsel Meister");
 
 	public void loadSkyBlockMenu(Player p) {
@@ -82,16 +83,18 @@ public class InventoryBuilder {
 
 		if (!p.hasPermission("vippermission")) {
 			
-			for (int i = 0; i < coopList.size(); i++) {
-				UUID uuid = UUID.fromString(coopList.get(i));
-				String skullOwner = "";
-				try {
-					skullOwner = Bukkit.getPlayer(uuid).getName();
-				} catch (NullPointerException nullPointerException) {
-					OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
-					skullOwner = offlinePlayer.getName();
-				}
-				this.skyBlockMenu_islandManage_CoopList.addItem(itemBuilder.createSkullWithLore(1, skullOwner, skullOwner, "§7➥ §cKlicke zum entfernen von deiner Insel."));
+			if(coopList != null) {
+				for (int i = 0; i < coopList.size(); i++) {
+					UUID uuid = UUID.fromString(coopList.get(i));
+					String skullOwner = "";
+					try {
+						skullOwner = Bukkit.getPlayer(uuid).getName();
+					} catch (NullPointerException nullPointerException) {
+						OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
+						skullOwner = offlinePlayer.getName();
+					}
+					this.skyBlockMenu_islandManage_CoopList.addItem(itemBuilder.createSkullWithLore(1, skullOwner, skullOwner, "§7➥ §cKlicke zum entfernen von deiner Insel."));
+				}	
 			}
 			
 			if(coopList.size() == 0) {
@@ -114,13 +117,14 @@ public class InventoryBuilder {
 			
 		
 		} else {
+			if(coopList != null) {
 			for (int i = 0; i < coopList.size(); i++) {
 				for (int s = 2; s < 6; s++) {
 					Player skullOwner = Bukkit.getPlayer(UUID.fromString(coopList.get(i)));
 					this.skyBlockMenu_islandManage_CoopList.addItem(itemBuilder.createSkullWithLore(1, skullOwner.getName(), skullOwner.getName(), "§7➥ §cKlicke zum entfernen von deiner Insel."));
+					}
 				}
 			}
-			
 			if(coopList.size() == 0) {
 				this.skyBlockMenu_islandManage_CoopList.setItem(2, itemBuilder.createItemWithOutLore(Material.STONE_BUTTON, 1, "§7Slot-1"));
 				this.skyBlockMenu_islandManage_CoopList.setItem(3, itemBuilder.createItemWithOutLore(Material.STONE_BUTTON, 1, "§7Slot-2"));
@@ -142,6 +146,20 @@ public class InventoryBuilder {
 			}
 		}
 		p.openInventory(this.skyBlockMenu_islandManage_CoopList);
+	}
+	
+	public void loadSkyBlockMenu_IslandManage_CoopRemove(Player p) {
+		
+		for(int i = 0; i <= 8; i++) {
+			if(i != 3 && i != 5) {
+				this.skyblockMenu_islandManage_CoopRemove.setItem(i, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
+			}
+		}
+		
+		this.skyblockMenu_islandManage_CoopRemove.setItem(3, itemBuilder.createItemWithLore(Material.LIME_WOOL, 1, "§aBestätigen", "§7➥ §cDer User wird von deiner Insel entfernt!"));
+		this.skyblockMenu_islandManage_CoopRemove.setItem(5, itemBuilder.createItemWithLore(Material.RED_WOOL, 1, "§4Abbrechen", "§7➥ §aDer User wird nicht von deiner Insel entfernt!"));
+		
+		p.openInventory(this.skyblockMenu_islandManage_CoopRemove);
 	}
 
 	public void loadIslandNpcMenu(Player p) {

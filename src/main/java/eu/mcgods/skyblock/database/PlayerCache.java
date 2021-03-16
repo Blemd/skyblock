@@ -125,7 +125,10 @@ public class PlayerCache {
 	}
 	
 	public static void removeCoopPlayerCache(UUID uuid, String targetUUID) {
-		coop.get(uuid).remove(targetUUID);
+		List<String> users = new ArrayList<String>();
+		users.addAll(coop.get(uuid));
+		users.remove(targetUUID);
+		coop.put(uuid, users);
 	}
 	
 	public static Integer getCoopPlayerCacheSize(UUID uuid) {

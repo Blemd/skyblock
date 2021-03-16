@@ -2,6 +2,7 @@ package eu.mcgods.skyblock.listener;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -21,9 +22,12 @@ public class IslandManageListener implements Listener {
 
 	@EventHandler
 	public void onClickInManageInv(InventoryClickEvent e) {
-//		try {
+		try {
 
 		Player p = (Player) e.getWhoClicked();
+		
+		String clickedPlayer = "";
+		Player target = Bukkit.getPlayer(clickedPlayer);
 
 		if (e.getView().getTitle().equalsIgnoreCase("§2Insel-Verwalten")) {
 			if (e.getClickedInventory() == e.getView().getTopInventory()) {
@@ -67,51 +71,29 @@ public class IslandManageListener implements Listener {
 					
 					List<String> playernames = PlayerCache.getCoopPlayerCacheNames(p.getUniqueId());
 					
+					clickedPlayer = e.getCurrentItem().getItemMeta().getDisplayName();
+					
 					if (playernames.contains(e.getCurrentItem().getItemMeta().getDisplayName())) {
+						invBuilder.loadSkyBlockMenu_IslandManage_CoopRemove(p);
+					}
+				} else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aBestätigen")) {
+					if(e.getCurrentItem().getType().equals(Material.LIME_WOOL)) {
 						p.closeInventory();
-						p.sendMessage(m.getPrefix() + "Du hast den Spieler entfernt.");
+						
+						PlayerCache.removeCoopPlayerCache(p.getUniqueId(), target.getUniqueId().toString());
+						p.sendMessage(m.getPrefix() + "Der Spieler §e" + target.getName() + " §7wurde von deiner Insel entfernt.");
+						p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
+					}
+				} else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§4Abbrechen")) {
+					if(e.getCurrentItem().getType().equals(Material.RED_WOOL)) {
+						p.closeInventory();
+						p.sendMessage(m.getPrefix() + "Der Spieler §e" + target.getName() + " §7wurde nicht von deiner Insel entfernt.");
+						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 					}
 				}
-				
-//				String[] coopMember = coopAPI.getCoopPartners(p.getUniqueId(), p.getUniqueId().toString()).split("\\;");
-//
-//				List<Player> playerList = new ArrayList<Player>();
-//				List<OfflinePlayer> offlinePlayerList = new ArrayList<OfflinePlayer>();
-//
-//				List<String> playernames = new ArrayList<String>();
-//
-//				ArrayList<String> coopList = new ArrayList<String>();
-//				coopList.addAll(Arrays.asList(coopMember));
-//
-//				// Put all coop players from database to playerlist & offlineplayerlist
-//				for (int i = 0; i < coopList.size(); i++) {
-//					UUID coopUUID = UUID.fromString(coopList.get(i));
-//
-//					Player player = Bukkit.getPlayer(coopUUID);
-//					if (player != null) {
-//						playerList.add(player);
-//					} else {
-//						OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(coopUUID);
-//						offlinePlayerList.add(offlinePlayer);
-//					}
-//				}
-//				
-//				// Add online players to playernames list
-//				if (playerList != null) {
-//					for (int i = 0; i < playerList.size(); i++) {
-//						playernames.add(playerList.get(i).getName());
-//					}
-//				}
-//
-//				// Add offline players to playernames list
-//				if (offlinePlayerList != null) {
-//					for (int i = 0; i < offlinePlayerList.size(); i++) {
-//						playernames.add(offlinePlayerList.get(i).getName());
-//					}
-//				}
 			}
 		}
-//		} catch (Exception exception) {
-//		}
+		} catch (Exception exception) {
+		}
 	}
 }
