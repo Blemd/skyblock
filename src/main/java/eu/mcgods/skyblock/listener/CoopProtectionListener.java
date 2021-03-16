@@ -259,6 +259,6 @@ public class CoopProtectionListener implements Listener {
 	
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent e) {
-		e.setDeathMessage(null);
+			e.setDeathMessage(null);
 	}
 }
