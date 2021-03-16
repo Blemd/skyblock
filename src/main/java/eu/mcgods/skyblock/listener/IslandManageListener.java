@@ -19,15 +19,13 @@ public class IslandManageListener implements Listener {
 
 	private SkyBlock m = SkyBlock.getInstance();
 	private InventoryBuilder invBuilder = new InventoryBuilder();
+	private String clickedPlayer = "";
 
 	@EventHandler
 	public void onClickInManageInv(InventoryClickEvent e) {
 		try {
 
 		Player p = (Player) e.getWhoClicked();
-		
-		String clickedPlayer = "";
-		Player target = Bukkit.getPlayer(clickedPlayer);
 
 		if (e.getView().getTitle().equalsIgnoreCase("§2Insel-Verwalten")) {
 			if (e.getClickedInventory() == e.getView().getTopInventory()) {
@@ -80,6 +78,9 @@ public class IslandManageListener implements Listener {
 					if(e.getCurrentItem().getType().equals(Material.LIME_WOOL)) {
 						p.closeInventory();
 						
+						Player target = Bukkit.getPlayer(clickedPlayer);
+						System.out.println(target.getName());
+						
 						PlayerCache.removeCoopPlayerCache(p.getUniqueId(), target.getUniqueId().toString());
 						p.sendMessage(m.getPrefix() + "Der Spieler §e" + target.getName() + " §7wurde von deiner Insel entfernt.");
 						p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
@@ -87,6 +88,9 @@ public class IslandManageListener implements Listener {
 				} else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§4Abbrechen")) {
 					if(e.getCurrentItem().getType().equals(Material.RED_WOOL)) {
 						p.closeInventory();
+						
+						Player target = Bukkit.getPlayer(clickedPlayer);
+						
 						p.sendMessage(m.getPrefix() + "Der Spieler §e" + target.getName() + " §7wurde nicht von deiner Insel entfernt.");
 						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 					}
