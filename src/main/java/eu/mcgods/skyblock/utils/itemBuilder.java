@@ -41,6 +41,20 @@ public class itemBuilder {
 
 		return item;
 	}
+	
+	public static ItemStack createGlowingItemWithLore(Material mat, Integer value, String name, String lore) {
+		ItemStack item = new ItemStack(mat, value.intValue());
+		ItemMeta itemmeta = item.getItemMeta();
+		itemmeta.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS });
+		itemmeta.addEnchant(Enchantment.DURABILITY, 1, false);
+		ArrayList<String> itemlore = new ArrayList<String>();
+		itemlore.add(lore);
+		itemmeta.setLore(itemlore);
+		itemmeta.setDisplayName(name);
+		item.setItemMeta(itemmeta);
+
+		return item;
+	}
 
 	public static ItemStack createPotionWithOutLore(Integer value, String name, Color color) {
 		ItemStack item = new ItemStack(Material.POTION, value.intValue());

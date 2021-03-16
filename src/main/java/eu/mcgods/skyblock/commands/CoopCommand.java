@@ -39,7 +39,7 @@ public class CoopCommand implements CommandExecutor {
 							if (target != null) {
 								if (target != sender) {
 									if(PlayerCache.getCoopPlayerCacheUUIDs(uuid) != null) {
-										if(PlayerCache.getCoopPlayerCacheSize(uuid) >= 4 && p.hasPermission("vip")) {
+										if(PlayerCache.getCoopPlayerCacheSize(uuid) >= 4 && p.hasPermission("skyblock.vip")) {
 											if(!PlayerCache.getCoopPlayerCacheUUIDs(uuid).contains(target.getUniqueId().toString())) {
 												PlayerCache.addCoopPlayerCache(uuid, target.getUniqueId().toString());
 												p.sendMessage(m.getPrefix() + "Du hast den Spieler §e" + target.getName() + " §7zu deiner Insel hinzugefügt.");

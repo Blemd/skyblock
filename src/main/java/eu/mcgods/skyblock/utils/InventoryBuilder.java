@@ -18,9 +18,14 @@ public class InventoryBuilder {
 	private SkyCoinsAPI coinsAPI = new SkyCoinsAPI();
 
 	private Inventory skyBlockMenu = Bukkit.createInventory(null, 6 * 9, "§a§lSkyblock-Menü");
+	
 	private Inventory skyBlockMenu_islandManage = Bukkit.createInventory(null, 9, "§2Insel-Verwalten");
 	private Inventory skyBlockMenu_islandManage_CoopList = Bukkit.createInventory(null, 9, "§2Insel-Verwalten");
-	private Inventory skyblockMenu_islandManage_CoopRemove = Bukkit.createInventory(null, 9, "§2Insel-Verwalten");
+	private Inventory skyBlockMenu_islandManage_CoopRemove = Bukkit.createInventory(null, 9, "§2Insel-Verwalten");
+	
+	private Inventory skyBlockMenu_IslandUpgrades = Bukkit.createInventory(null, 9, "§2Insel-Upgrades");
+	private Inventory skyBlockMenu_IslandUpgrades_IslandBorder = Bukkit.createInventory(null, 9, "§2Insel-Upgrades");
+	
 	private Inventory islandNpcMenu = Bukkit.createInventory(null, 9, "§aInsel Meister");
 
 	public void loadSkyBlockMenu(Player p) {
@@ -81,7 +86,7 @@ public class InventoryBuilder {
 		ArrayList<String> coopList = new ArrayList<String>();
 		coopList.addAll(coopMember);
 
-		if (!p.hasPermission("vippermission")) {
+		if (!p.hasPermission("skyblock.vip")) {
 			
 			if(coopList != null) {
 				for (int i = 0; i < coopList.size(); i++) {
@@ -152,16 +157,69 @@ public class InventoryBuilder {
 		
 		for(int i = 0; i <= 8; i++) {
 			if(i != 3 && i != 5) {
-				this.skyblockMenu_islandManage_CoopRemove.setItem(i, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
+				this.skyBlockMenu_islandManage_CoopRemove.setItem(i, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
 			}
 		}
 		
-		this.skyblockMenu_islandManage_CoopRemove.setItem(3, itemBuilder.createItemWithLore(Material.LIME_WOOL, 1, "§aBestätigen", "§7➥ §cDer User wird von deiner Insel entfernt!"));
-		this.skyblockMenu_islandManage_CoopRemove.setItem(5, itemBuilder.createItemWithLore(Material.RED_WOOL, 1, "§4Abbrechen", "§7➥ §aDer User wird nicht von deiner Insel entfernt!"));
+		this.skyBlockMenu_islandManage_CoopRemove.setItem(3, itemBuilder.createItemWithLore(Material.LIME_WOOL, 1, "§aBestätigen", "§7➥ §cDer User wird von deiner Insel entfernt!"));
+		this.skyBlockMenu_islandManage_CoopRemove.setItem(5, itemBuilder.createItemWithLore(Material.RED_WOOL, 1, "§4Abbrechen", "§7➥ §aDer User wird nicht von deiner Insel entfernt!"));
 		
-		p.openInventory(this.skyblockMenu_islandManage_CoopRemove);
+		p.openInventory(this.skyBlockMenu_islandManage_CoopRemove);
+	}
+	
+	public void loadSkyBlockMenu_IslandUpgrades(Player p) {
+		
+		for(int i = 0; i <= 8; i++) {
+			if(i != 3 && i != 4 && i != 5) {
+				this.skyBlockMenu_IslandUpgrades.setItem(i, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
+			}
+		}
+		
+		this.skyBlockMenu_IslandUpgrades.setItem(3, itemBuilder.createSkullWithLore(1, "MHF_Question", "§4?", "§c§kKommt bald"));
+		this.skyBlockMenu_IslandUpgrades.setItem(4, itemBuilder.createItemWithLore(Material.END_CRYSTAL, 1, "§5Insel-Border", "§7➥ Vergrößere deine Insel."));
+		this.skyBlockMenu_IslandUpgrades.setItem(5, itemBuilder.createSkullWithLore(1, "MHF_Question", "§4?", "§c§kKommt bald"));
+		
+		p.openInventory(this.skyBlockMenu_IslandUpgrades);
 	}
 
+	public void loadSkyBlockMenu_IslandUpgrades_IslandBorder(Player p) {
+		
+		for(int i = 0; i <= 8; i++) {
+			if(i != 2 && i != 3 && i != 4 && i != 5) {
+				this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(i, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
+			}
+		}
+		
+		if(Bukkit.getWorld(p.getUniqueId().toString()).getWorldBorder().getSize() == 16*6D) {
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(2, itemBuilder.createItemWithLore(Material.LEATHER_HORSE_ARMOR, 1, "§cStufe-1", "§7Kostet: §62000 SkyCoins"));
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(3, itemBuilder.createItemWithLore(Material.IRON_HORSE_ARMOR, 1, "§cStufe-2", "§7Kostet: §65000 SkyCoins"));
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(4, itemBuilder.createItemWithLore(Material.GOLDEN_HORSE_ARMOR, 1, "§cStufe-3", "§7Kostet: §610000 SkyCoins"));
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(5, itemBuilder.createItemWithLore(Material.DIAMOND_HORSE_ARMOR, 1, "§cStufe-4", "§7Kostet: §620000 SkyCoins"));
+		} else if (Bukkit.getWorld(p.getUniqueId().toString()).getWorldBorder().getSize() == 16*8D) {
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(2, itemBuilder.createGlowingItemWithLore(Material.LEATHER_HORSE_ARMOR, 1, "§aStufe-1", "§7Gekauft"));
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(3, itemBuilder.createItemWithLore(Material.IRON_HORSE_ARMOR, 1, "§cStufe-2", "§7Kostet: §65000 SkyCoins"));
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(4, itemBuilder.createItemWithLore(Material.GOLDEN_HORSE_ARMOR, 1, "§cStufe-3", "§7Kostet: §610000 SkyCoins"));
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(5, itemBuilder.createItemWithLore(Material.DIAMOND_HORSE_ARMOR, 1, "§cStufe-4", "§7Kostet: §620000 SkyCoins"));
+		} else if (Bukkit.getWorld(p.getUniqueId().toString()).getWorldBorder().getSize() == 16*10D) {
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(2, itemBuilder.createGlowingItemWithLore(Material.LEATHER_HORSE_ARMOR, 1, "§aStufe-1", "§7Gekauft"));
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(3, itemBuilder.createGlowingItemWithLore(Material.IRON_HORSE_ARMOR, 1, "§aStufe-2", "§7Gekauft"));
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(4, itemBuilder.createItemWithLore(Material.GOLDEN_HORSE_ARMOR, 1, "§cStufe-3", "§7Kostet: §610000 SkyCoins"));
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(5, itemBuilder.createItemWithLore(Material.DIAMOND_HORSE_ARMOR, 1, "§cStufe-4", "§7Kostet: §620000 SkyCoins"));
+		} else if (Bukkit.getWorld(p.getUniqueId().toString()).getWorldBorder().getSize() == 16*12D) {
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(2, itemBuilder.createGlowingItemWithLore(Material.LEATHER_HORSE_ARMOR, 1, "§aStufe-1", "§7Gekauft"));
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(3, itemBuilder.createGlowingItemWithLore(Material.IRON_HORSE_ARMOR, 1, "§aStufe-2", "§7Gekauft"));
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(4, itemBuilder.createGlowingItemWithLore(Material.GOLDEN_HORSE_ARMOR, 1, "§aStufe-3", "§7Gekauft"));
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(5, itemBuilder.createItemWithLore(Material.DIAMOND_HORSE_ARMOR, 1, "§cStufe-4", "§7Kostet: §620000 SkyCoins"));
+		} else if (Bukkit.getWorld(p.getUniqueId().toString()).getWorldBorder().getSize() == 16*14D) {
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(2, itemBuilder.createGlowingItemWithLore(Material.LEATHER_HORSE_ARMOR, 1, "§aStufe-1", "§7Gekauft"));
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(3, itemBuilder.createGlowingItemWithLore(Material.IRON_HORSE_ARMOR, 1, "§aStufe-2", "§7Gekauft"));
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(4, itemBuilder.createGlowingItemWithLore(Material.GOLDEN_HORSE_ARMOR, 1, "§aStufe-3", "§7Gekauft"));
+			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(5, itemBuilder.createGlowingItemWithLore(Material.DIAMOND_HORSE_ARMOR, 1, "§aStufe-4", "§7Gekauft"));
+		}
+		
+		p.openInventory(this.skyBlockMenu_IslandUpgrades_IslandBorder);
+	}
+	
 	public void loadIslandNpcMenu(Player p) {
 
 		for (int i = 0; i <= 8; i++) {
