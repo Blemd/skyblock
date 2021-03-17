@@ -19,7 +19,7 @@ public class CoopCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-//		try {
+		try {
 
 			Player p = (Player) sender;
 			UUID uuid = p.getUniqueId();
@@ -85,8 +85,8 @@ public class CoopCommand implements CommandExecutor {
 			} else {
 				sender.sendMessage(m.getPrefix() + "§cDieser Befehl kann nur von einem Spieler ausgeführt werden!");
 			}
-//		} catch (Exception exception) {
-//		}
+		} catch (Exception exception) {
+		}
 		return false;
 	}
 }

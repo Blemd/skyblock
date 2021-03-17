@@ -11,11 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import eu.mcgods.skyblock.database.PlayerCache;
-import eu.mcgods.skyblock.database.SkyCoinsAPI;
 
 public class InventoryBuilder {
-
-	private SkyCoinsAPI coinsAPI = new SkyCoinsAPI();
 
 	private Inventory skyBlockMenu = Bukkit.createInventory(null, 6 * 9, "§a§lSkyblock-Menü");
 	
@@ -38,7 +35,7 @@ public class InventoryBuilder {
 				this.skyBlockMenu.setItem(i, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
 			}
 		}
-		this.skyBlockMenu.setItem(4, itemBuilder.createSkullWithLore(1, p.getName(), "§e" + p.getName(), "§6SkyCoins: " + coinsAPI.getSkyCoins(uuid)));
+		this.skyBlockMenu.setItem(4, itemBuilder.createSkullWithLore(1, p.getName(), "§e" + p.getName(), "§6SkyCoins: " + PlayerCache.getSkyCoinsCache(uuid)));
 		this.skyBlockMenu.setItem(10, itemBuilder.createItemWithLore(Material.NETHER_STAR, 1, "§eVote", "§7➥ Vote für das Netzwerk und erhalte eine Belohnung."));
 		this.skyBlockMenu.setItem(16, itemBuilder.createItemWithLore(Material.REPEATER, 1, "§eSpieler-Einstellungen", "§7➥ §cKommt demnächst..."));
 		this.skyBlockMenu.setItem(20, itemBuilder.createItemWithLore(Material.PAINTING, 1, "§9Sammlungen", "§7➥ §cKommt noch nicht."));

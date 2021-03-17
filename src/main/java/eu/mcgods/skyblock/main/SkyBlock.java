@@ -6,6 +6,8 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import eu.mcgods.skyblock.commands.CoopCommand;
+import eu.mcgods.skyblock.commands.EcoCommand;
+import eu.mcgods.skyblock.commands.PayCommand;
 import eu.mcgods.skyblock.commands.VisitCommand;
 import eu.mcgods.skyblock.database.MySQL;
 import eu.mcgods.skyblock.database.PlayerCache;
@@ -71,6 +73,8 @@ public class SkyBlock extends JavaPlugin {
 	private void loadCommands() {
 		getCommand("coop").setExecutor(new CoopCommand());
 		getCommand("visit").setExecutor(new VisitCommand());
+		getCommand("pay").setExecutor(new PayCommand());
+		getCommand("eco").setExecutor(new EcoCommand());
 	}
 	
 	private void loadConfig() {
