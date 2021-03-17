@@ -14,6 +14,7 @@ import eu.mcgods.skyblock.database.MySQL;
 import eu.mcgods.skyblock.database.PlayerCache;
 import eu.mcgods.skyblock.database.SkyCoinsAPI;
 import eu.mcgods.skyblock.main.SkyBlock;
+import eu.mcgods.skyblock.scoreboard.ScoreBoard;
 import eu.mcgods.skyblock.utils.itemBuilder;
 
 public class JoinListener implements Listener {
@@ -31,6 +32,8 @@ public class JoinListener implements Listener {
 		
 		final Player p = e.getPlayer();
 		final UUID uuid = p.getUniqueId();
+		
+		ScoreBoard.setScoreboard(uuid);
 		
 		Thread thread = new Thread(new Runnable() {
 

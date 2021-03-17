@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import eu.mcgods.skyblock.commands.CoopCommand;
 import eu.mcgods.skyblock.commands.EcoCommand;
@@ -19,12 +20,13 @@ import eu.mcgods.skyblock.listener.JoinListener;
 import eu.mcgods.skyblock.listener.QuitListener;
 import eu.mcgods.skyblock.listener.SkyBlockMenuItemListener;
 import eu.mcgods.skyblock.listener.SkyBlockMenuListener;
+import eu.mcgods.skyblock.scoreboard.ScoreBoard;
 
 public class SkyBlock extends JavaPlugin {
 
 	private static SkyBlock instance;
 	
-	private final String prefix = "§a§lSkyblock §8➢ §7";
+	private final String prefix = "§a§lSkyBlock §8➢ §7";
 	
 	public MySQL mySQL = new MySQL();
 	
@@ -43,8 +45,19 @@ public class SkyBlock extends JavaPlugin {
 		
 		for(Player allOnline : Bukkit.getOnlinePlayers()) {
 			new PlayerCache(allOnline);
+			ScoreBoard.updateScoreboard(allOnline.getUniqueId());
 		}
 		System.out.println(this.prefix + "§cCreated §e" + Bukkit.getOnlinePlayers().size() + " §cnew PlayerCache's!");
+		
+		new BukkitRunnable() {
+			
+			@Override
+			public void run() {
+				for(Player all : Bukkit.getOnlinePlayers()) {
+					ScoreBoard.updateScoreboard(all.getUniqueId());
+				}
+			}
+		}.runTaskTimer(getInstance(), 20, 20);
 	}
 	
 	@Override
