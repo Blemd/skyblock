@@ -67,14 +67,14 @@ public class PlayerCache {
 		
 		if(coop.containsKey(uuid)) {
 			coopAPI.setCoopPartners(uuid, coop.get(uuid));
+			coop.remove(uuid);
 		}
 		
 		if(quests.containsKey(uuid)) {
 			questAPI.setPlayerQuests(uuid, quests.get(uuid));
+			quests.remove(uuid);
 		}
 		
-		quests.remove(uuid);
-		coop.remove(uuid);
 		skyCoins.remove(uuid);
 		itemContents.remove(uuid);
 		armorContents.remove(uuid);
@@ -198,10 +198,14 @@ public class PlayerCache {
 	
 	//Setter & Getter for Quests
 	
-	public static void addPlayerQuestCache(UUID uuid, String quest) {
-		if(!quests.get(uuid).contains(quest)) {
-			quests.get(uuid).add(quest);
+	public static void addPlayerQuestCache(UUID uuid, String questId) {
+		if(!quests.get(uuid).contains(questId)) {				
+			quests.get(uuid).addAll(Arrays.asList(questId));
 		}
+	}
+	
+	public static void setPlayerQuestCache(UUID uuid, String questId) {
+		quests.put(uuid, Arrays.asList(questId));
 	}
 	
 	public static List<String> getPlayerQuestCache(UUID uuid) {

@@ -25,8 +25,8 @@ public class InventoryBuilder {
 	
 	private Inventory skyBlockMenu_Quests = Bukkit.createInventory(null, 9, "§4Quests");
 	private Inventory skyBlockMenu_Quests_Easy = Bukkit.createInventory(null, 3 * 9, "§aEinfache Quests");
-	private Inventory skyBlockMenu_Quests_Mid = Bukkit.createInventory(null, 3 * 9, "§eMittlere Quests");
-	private Inventory skyBlockMenu_Quests_Hard = Bukkit.createInventory(null, 3 * 9, "§cSchwere Quests");
+//	private Inventory skyBlockMenu_Quests_Mid = Bukkit.createInventory(null, 3 * 9, "§eMittlere Quests");
+//	private Inventory skyBlockMenu_Quests_Hard = Bukkit.createInventory(null, 3 * 9, "§cSchwere Quests");
 	
 	private Inventory islandNpcMenu = Bukkit.createInventory(null, 9, "§aInsel Meister");
 
@@ -281,14 +281,14 @@ public class InventoryBuilder {
 			this.skyBlockMenu_Quests_Easy.setItem(16, itemBuilder.createItemWith3Lore(Material.IRON_INGOT, 1, "§cSammel 32x Eisen", "§7Erhalte:", "§8● §a1x Diamant", "§8● §630 SkyCoins"));			
 		}
 		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("easy8")) {
-			this.skyBlockMenu_Quests_Easy.setItem(20, itemBuilder.createGlowingItemWithLore(Material.MELON, 1, "§aSammel 256 Melonenscheiben", "§8● §aAbgeschlossen"));
+			this.skyBlockMenu_Quests_Easy.setItem(20, itemBuilder.createGlowingItemWithLore(Material.MELON, 1, "§aSammel 256x Melonenscheiben", "§8● §aAbgeschlossen"));
 		} else {
-			this.skyBlockMenu_Quests_Easy.setItem(20, itemBuilder.createItemWith3Lore(Material.MELON, 1, "§cBaue eine Werkbank", "§7Erhalte:", "§8● §a5x Karotten", "§8● §6100 SkyCoins"));			
+			this.skyBlockMenu_Quests_Easy.setItem(20, itemBuilder.createItemWith3Lore(Material.MELON, 1, "§cSammel 256x Melonenscheiben", "§7Erhalte:", "§8● §a5x Karotten", "§8● §6100 SkyCoins"));			
 		}
 		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("easy10")) {
 			this.skyBlockMenu_Quests_Easy.setItem(22, itemBuilder.createGlowingItemWithLore(Material.BEACON, 1, "§aSchließe alle einfachen Quests ab", "§8● §aAbgeschlossen"));
 		} else {
-			this.skyBlockMenu_Quests_Easy.setItem(22, itemBuilder.createItemWith3Lore(Material.BEACON, 1, "§cSchließe alle einfachen Quests ab", "§7Erhalte:", "§8● §a1x Diamant", "§8● §6200 SkyCoins"));			
+			this.skyBlockMenu_Quests_Easy.setItem(22, itemBuilder.createItemWith3Lore(Material.BEACON, 1, "§cSchließe alle einfachen Quests ab", "§7Erhalte:", "§8● §a2x Diamant", "§8● §6200 SkyCoins"));			
 		}
 		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("easy9")) {
 			this.skyBlockMenu_Quests_Easy.setItem(24, itemBuilder.createGlowingItemWithLore(Material.APPLE, 1, "§aSammel 48x Äpfel", "§8● §aAbgeschlossen"));
@@ -303,7 +303,7 @@ public class InventoryBuilder {
 		this.skyBlockMenu_Quests_Easy.setItem(8, itemBuilder.createItemWith3Lore(Material.FURNACE, 1, "§cBaue einen Ofen", "§7Erhalte:", "§8● §a1x 10 Kohle", "§8● §615 SkyCoins"));			
 		this.skyBlockMenu_Quests_Easy.setItem(10, itemBuilder.createItemWith3Lore(Material.COAL, 1, "§cSammel 16x Kohle", "§7Erhalte:", "§8● §a1x Lavaeimer", "§8● §625 SkyCoins"));			
 		this.skyBlockMenu_Quests_Easy.setItem(16, itemBuilder.createItemWith3Lore(Material.IRON_INGOT, 1, "§cSammel 32x Eisen", "§7Erhalte:", "§8● §a1x Diamant", "§8● §630 SkyCoins"));			
-		this.skyBlockMenu_Quests_Easy.setItem(20, itemBuilder.createItemWith3Lore(Material.MELON, 1, "§cBaue eine Werkbank", "§7Erhalte:", "§8● §a5x Karotten", "§8● §6100 SkyCoins"));			
+		this.skyBlockMenu_Quests_Easy.setItem(20, itemBuilder.createItemWith3Lore(Material.MELON, 1, "§cSammel 256x Melonenscheiben", "§7Erhalte:", "§8● §a5x Karotten", "§8● §6100 SkyCoins"));			
 		this.skyBlockMenu_Quests_Easy.setItem(22, itemBuilder.createItemWith3Lore(Material.BEACON, 1, "§cSchließe alle einfachen Quests ab", "§7Erhalte:", "§8● §a1x Diamant", "§8● §6200 SkyCoins"));			
 		this.skyBlockMenu_Quests_Easy.setItem(24, itemBuilder.createItemWith3Lore(Material.APPLE, 1, "§cSammel 48x Äpfel", "§7Erhalte:", "§8● §a1x Fichtensetzling", "§8● §650 SkyCoins"));		
 	}

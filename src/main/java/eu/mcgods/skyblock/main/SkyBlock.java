@@ -17,6 +17,7 @@ import eu.mcgods.skyblock.listener.IslandManageListener;
 import eu.mcgods.skyblock.listener.IslandNpcListener;
 import eu.mcgods.skyblock.listener.IslandUpgradeListener;
 import eu.mcgods.skyblock.listener.JoinListener;
+import eu.mcgods.skyblock.listener.QuestEasyListener;
 import eu.mcgods.skyblock.listener.QuestMenuListener;
 import eu.mcgods.skyblock.listener.QuitListener;
 import eu.mcgods.skyblock.listener.SkyBlockMenuItemListener;
@@ -83,6 +84,7 @@ public class SkyBlock extends JavaPlugin {
 		pm.registerEvents(new IslandManageListener(), this);
 		pm.registerEvents(new IslandUpgradeListener(), this);
 		pm.registerEvents(new QuestMenuListener(), this);
+		pm.registerEvents(new QuestEasyListener(), this);
 	}
 	
 	private void loadCommands() {
