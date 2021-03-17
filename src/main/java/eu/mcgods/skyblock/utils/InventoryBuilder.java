@@ -23,6 +23,11 @@ public class InventoryBuilder {
 	private Inventory skyBlockMenu_IslandUpgrades = Bukkit.createInventory(null, 9, "§2Insel-Upgrades");
 	private Inventory skyBlockMenu_IslandUpgrades_IslandBorder = Bukkit.createInventory(null, 9, "§2Insel-Upgrades");
 	
+	private Inventory skyBlockMenu_Quests = Bukkit.createInventory(null, 9, "§4Quests");
+	private Inventory skyBlockMenu_Quests_Easy = Bukkit.createInventory(null, 3 * 9, "§aEinfache Quests");
+	private Inventory skyBlockMenu_Quests_Mid = Bukkit.createInventory(null, 3 * 9, "§eMittlere Quests");
+	private Inventory skyBlockMenu_Quests_Hard = Bukkit.createInventory(null, 3 * 9, "§cSchwere Quests");
+	
 	private Inventory islandNpcMenu = Bukkit.createInventory(null, 9, "§aInsel Meister");
 
 	public void loadSkyBlockMenu(Player p) {
@@ -216,6 +221,94 @@ public class InventoryBuilder {
 		
 		p.openInventory(this.skyBlockMenu_IslandUpgrades_IslandBorder);
 	}
+	
+	public void loadSkyBlockMenu_Quests(Player p) {
+		
+		for(int i = 0; i <= 8; i++) {
+			if(i != 2 && i != 4 && i != 6) {
+				this.skyBlockMenu_Quests.setItem(i, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
+			}
+		}
+		
+		this.skyBlockMenu_Quests.setItem(2, itemBuilder.createItemWithOutLore(Material.LEATHER_HELMET, 1, "§aEinfache Quests"));
+		this.skyBlockMenu_Quests.setItem(4, itemBuilder.createItemWithOutLore(Material.IRON_HELMET, 1, "§eMittlere Quests"));
+		this.skyBlockMenu_Quests.setItem(6, itemBuilder.createItemWithOutLore(Material.DIAMOND_HELMET, 1, "§cSchwere Quests"));
+		
+		p.openInventory(this.skyBlockMenu_Quests);
+	}
+	
+	public void loadSkyBlockMenu_Quests_Easy(Player p) {
+		for(int i = 0; i <= 26; i++) {
+			if(i != 0 && i != 2 && i != 4 && i != 6 && i != 8 && i != 10 && i != 16 && i != 20 && i != 22 && i != 24) {
+				this.skyBlockMenu_Quests_Easy.setItem(i, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
+			}
+		}
+		
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()) != null) {
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("easy1")) {
+			this.skyBlockMenu_Quests_Easy.setItem(0, itemBuilder.createGlowingItemWithLore(Material.CRAFTING_TABLE, 1, "§aBaue eine Werkbank", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Easy.setItem(0, itemBuilder.createItemWith3Lore(Material.CRAFTING_TABLE, 1, "§cBaue eine Werkbank", "§7Erhalte:", "§8● §a1x Eichensetzling", "§8● §65 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("easy2")) {
+			this.skyBlockMenu_Quests_Easy.setItem(2, itemBuilder.createGlowingItemWithLore(Material.DIRT, 1, "§aSammel 32x Erde", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Easy.setItem(2, itemBuilder.createItemWith3Lore(Material.DIRT, 1, "§cSammel 32x Erde", "§7Erhalte:", "§8● §a4x Podsol", "§8● §635 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("easy3")) {
+			this.skyBlockMenu_Quests_Easy.setItem(4, itemBuilder.createGlowingItemWithLore(Material.OAK_LOG, 1, "§aSammel 30x Eichenholz", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Easy.setItem(4, itemBuilder.createItemWith3Lore(Material.OAK_LOG, 1, "§cSammel 30x Eichenholz", "§7Erhalte:", "§8● §a1x Steinaxt", "§8● §610 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("easy4")) {
+			this.skyBlockMenu_Quests_Easy.setItem(6, itemBuilder.createGlowingItemWithLore(Material.COBBLESTONE, 1, "§aSammel 128x Bruchstein", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Easy.setItem(6, itemBuilder.createItemWith3Lore(Material.COBBLESTONE, 1, "§cSammel 128x Bruchstein", "§7Erhalte:", "§8● §a6x Eisenbarren", "§8● §620 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("easy5")) {
+			this.skyBlockMenu_Quests_Easy.setItem(8, itemBuilder.createGlowingItemWithLore(Material.FURNACE, 1, "§aBaue einen Ofen", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Easy.setItem(8, itemBuilder.createItemWith3Lore(Material.FURNACE, 1, "§cBaue einen Ofen", "§7Erhalte:", "§8● §a1x 10 Kohle", "§8● §615 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("easy6")) {
+			this.skyBlockMenu_Quests_Easy.setItem(10, itemBuilder.createGlowingItemWithLore(Material.COAL, 1, "§aSammel 16x Kohle", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Easy.setItem(10, itemBuilder.createItemWith3Lore(Material.COAL, 1, "§cSammel 16x Kohle", "§7Erhalte:", "§8● §a1x Lavaeimer", "§8● §625 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("easy7")) {
+			this.skyBlockMenu_Quests_Easy.setItem(16, itemBuilder.createGlowingItemWithLore(Material.IRON_INGOT, 1, "§aSammel 32x Eisen", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Easy.setItem(16, itemBuilder.createItemWith3Lore(Material.IRON_INGOT, 1, "§cSammel 32x Eisen", "§7Erhalte:", "§8● §a1x Diamant", "§8● §630 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("easy8")) {
+			this.skyBlockMenu_Quests_Easy.setItem(20, itemBuilder.createGlowingItemWithLore(Material.MELON, 1, "§aSammel 256 Melonenscheiben", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Easy.setItem(20, itemBuilder.createItemWith3Lore(Material.MELON, 1, "§cBaue eine Werkbank", "§7Erhalte:", "§8● §a5x Karotten", "§8● §6100 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("easy10")) {
+			this.skyBlockMenu_Quests_Easy.setItem(22, itemBuilder.createGlowingItemWithLore(Material.BEACON, 1, "§aSchließe alle einfachen Quests ab", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Easy.setItem(22, itemBuilder.createItemWith3Lore(Material.BEACON, 1, "§cSchließe alle einfachen Quests ab", "§7Erhalte:", "§8● §a1x Diamant", "§8● §6200 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("easy9")) {
+			this.skyBlockMenu_Quests_Easy.setItem(24, itemBuilder.createGlowingItemWithLore(Material.APPLE, 1, "§aSammel 48x Äpfel", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Easy.setItem(24, itemBuilder.createItemWith3Lore(Material.APPLE, 1, "§cSammel 48x Äpfel", "§7Erhalte:", "§8● §a1x Fichtensetzling", "§8● §650 SkyCoins"));			
+			}
+	} else {
+		this.skyBlockMenu_Quests_Easy.setItem(0, itemBuilder.createItemWith3Lore(Material.CRAFTING_TABLE, 1, "§cBaue eine Werkbank", "§7Erhalte:", "§8● §a1x Eichensetzling", "§8● §65 SkyCoins"));			
+		this.skyBlockMenu_Quests_Easy.setItem(2, itemBuilder.createItemWith3Lore(Material.DIRT, 1, "§cSammel 32x Erde", "§7Erhalte:", "§8● §a4x Podsol", "§8● §635 SkyCoins"));			
+		this.skyBlockMenu_Quests_Easy.setItem(4, itemBuilder.createItemWith3Lore(Material.OAK_LOG, 1, "§cSammel 30x Eichenholz", "§7Erhalte:", "§8● §a1x Steinaxt", "§8● §610 SkyCoins"));			
+		this.skyBlockMenu_Quests_Easy.setItem(6, itemBuilder.createItemWith3Lore(Material.COBBLESTONE, 1, "§cSammel 128x Bruchstein", "§7Erhalte:", "§8● §a6x Eisenbarren", "§8● §620 SkyCoins"));			
+		this.skyBlockMenu_Quests_Easy.setItem(8, itemBuilder.createItemWith3Lore(Material.FURNACE, 1, "§cBaue einen Ofen", "§7Erhalte:", "§8● §a1x 10 Kohle", "§8● §615 SkyCoins"));			
+		this.skyBlockMenu_Quests_Easy.setItem(10, itemBuilder.createItemWith3Lore(Material.COAL, 1, "§cSammel 16x Kohle", "§7Erhalte:", "§8● §a1x Lavaeimer", "§8● §625 SkyCoins"));			
+		this.skyBlockMenu_Quests_Easy.setItem(16, itemBuilder.createItemWith3Lore(Material.IRON_INGOT, 1, "§cSammel 32x Eisen", "§7Erhalte:", "§8● §a1x Diamant", "§8● §630 SkyCoins"));			
+		this.skyBlockMenu_Quests_Easy.setItem(20, itemBuilder.createItemWith3Lore(Material.MELON, 1, "§cBaue eine Werkbank", "§7Erhalte:", "§8● §a5x Karotten", "§8● §6100 SkyCoins"));			
+		this.skyBlockMenu_Quests_Easy.setItem(22, itemBuilder.createItemWith3Lore(Material.BEACON, 1, "§cSchließe alle einfachen Quests ab", "§7Erhalte:", "§8● §a1x Diamant", "§8● §6200 SkyCoins"));			
+		this.skyBlockMenu_Quests_Easy.setItem(24, itemBuilder.createItemWith3Lore(Material.APPLE, 1, "§cSammel 48x Äpfel", "§7Erhalte:", "§8● §a1x Fichtensetzling", "§8● §650 SkyCoins"));		
+	}
+		p.openInventory(this.skyBlockMenu_Quests_Easy);
+}
 	
 	public void loadIslandNpcMenu(Player p) {
 

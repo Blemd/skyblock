@@ -40,6 +40,10 @@ public class SkyBlockMenuListener implements Listener {
 						if(e.getCurrentItem().getType().equals(Material.PLAYER_HEAD)) {
 							invBuilder.loadSkyBlockMenu_IslandUpgrades(p);
 						}
+					} else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§4Quests")) {
+						if(e.getCurrentItem().getType().equals(Material.BOOK)) {
+							invBuilder.loadSkyBlockMenu_Quests(p);
+						}
 					}
 				}
 			}

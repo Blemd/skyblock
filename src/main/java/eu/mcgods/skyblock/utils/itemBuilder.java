@@ -42,6 +42,21 @@ public class itemBuilder {
 		return item;
 	}
 	
+	public static ItemStack createItemWith3Lore(Material mat, Integer value, String name, String lore1, String lore2, String lore3) {
+		ItemStack item = new ItemStack(mat, value.intValue());
+		ItemMeta itemmeta = item.getItemMeta();
+		itemmeta.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_ATTRIBUTES });
+		ArrayList<String> itemlore = new ArrayList<String>();
+		itemlore.add(lore1);
+		itemlore.add(lore2);
+		itemlore.add(lore3);
+		itemmeta.setLore(itemlore);
+		itemmeta.setDisplayName(name);
+		item.setItemMeta(itemmeta);
+
+		return item;
+	}
+	
 	public static ItemStack createGlowingItemWithLore(Material mat, Integer value, String name, String lore) {
 		ItemStack item = new ItemStack(mat, value.intValue());
 		ItemMeta itemmeta = item.getItemMeta();

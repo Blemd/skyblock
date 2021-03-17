@@ -19,12 +19,12 @@ public class PlayerCache {
 	private InventoryAPI invAPI = new InventoryAPI();
 	private static SkyCoinsAPI coinsAPI = new SkyCoinsAPI();
 	private static CoopAPI coopAPI = new CoopAPI();
+	private static QuestAPI questAPI = new QuestAPI();
 	
-	//private static Map<String, Integer> islandbank = new HashMap<String, Integer>();
 	private static Map<UUID, Integer> skyCoins = new HashMap<UUID, Integer>();
 	private static Map<UUID, ItemStack[]> itemContents = new HashMap<UUID, ItemStack[]>();
 	private static Map<UUID, ItemStack[]> armorContents = new HashMap<UUID, ItemStack[]>();
-	//private static Map<UUID, List<String>> quests = new HashMap<UUID, List<String>>();
+	private static Map<UUID, List<String>> quests = new HashMap<UUID, List<String>>();
 	
 	private static Map<UUID, List<String>> coop = new HashMap<UUID, List<String>>();
 	
@@ -36,8 +36,6 @@ public class PlayerCache {
 		String[] loadInventory = invAPI.getInv(p.getUniqueId()).split("\\;");
 		ItemStack[] playerItems = InventorySave.itemStackArrayFromBase64(loadInventory[0]);
 		ItemStack[] playerArmor = InventorySave.itemStackArrayFromBase64(loadInventory[1]);
-		//playerBank
-		//playerQuests
 		
 		try {
 		String[] coopMember = coopAPI.getCoopPartners(p.getUniqueId(), p.getUniqueId().toString()).split("\\;");
@@ -46,6 +44,11 @@ public class PlayerCache {
 		coopList.addAll(Arrays.asList(coopMember));
 		
 		coop.put(uuid, coopList);
+		} catch (NullPointerException nullPointerException) {
+		}
+		
+		try {
+			quests.put(uuid, questAPI.getPlayerQuests(uuid));
 		} catch (NullPointerException nullPointerException) {
 		}
 		
@@ -66,6 +69,11 @@ public class PlayerCache {
 			coopAPI.setCoopPartners(uuid, coop.get(uuid));
 		}
 		
+		if(quests.containsKey(uuid)) {
+			questAPI.setPlayerQuests(uuid, quests.get(uuid));
+		}
+		
+		quests.remove(uuid);
 		coop.remove(uuid);
 		skyCoins.remove(uuid);
 		itemContents.remove(uuid);
@@ -113,6 +121,8 @@ public class PlayerCache {
 	public static void setArmorContents(UUID uuid, ItemStack[] itemStack) {
 		armorContents.put(uuid, itemStack);
 	}
+	
+	//Setter & Getter for CoopPlayerCache
 	
 	public static void addCoopPlayerCache(UUID uuid, String targetUUID) {
 		if(!(coop.get(uuid).size() >= 4) && !coop.get(uuid).contains(targetUUID)) {
@@ -184,5 +194,21 @@ public class PlayerCache {
 			}
 		}
 		return userNames;
+	}
+	
+	//Setter & Getter for Quests
+	
+	public static void addPlayerQuestCache(UUID uuid, String quest) {
+		if(!quests.get(uuid).contains(quest)) {
+			quests.get(uuid).add(quest);
+		}
+	}
+	
+	public static List<String> getPlayerQuestCache(UUID uuid) {
+		try {
+			return quests.get(uuid);
+		} catch (NullPointerException nullPointerException) {
+			return null;
+		}
 	}
 }

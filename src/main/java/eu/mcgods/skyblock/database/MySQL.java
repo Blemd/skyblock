@@ -108,6 +108,19 @@ public class MySQL {
 			return false;
 		}
 	}
+	
+	public boolean checkIfUserHasAlReadyQuestData(UUID uuid) {
+		try {
+			PreparedStatement pst = this.connection.prepareStatement("SELECT COMPLETEDQUESTS FROM " + this.table + "_quest WHERE UUID = ?");
+			pst.setString(1, uuid.toString());
+			ResultSet rs = pst.executeQuery();
+			
+			return rs.next();
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+			return false;
+		}
+	}
 
 	public String getHost() {
 		return host;
