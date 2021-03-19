@@ -40,20 +40,17 @@ public class PlayerCache {
 
 		try {
 			String[] coopMember = coopAPI.getCoopPartners(uuid, uuid.toString()).split("\\;");
-
 			List<String> coopList = new ArrayList<String>();
 			coopList.addAll(Arrays.asList(coopMember));
-
+			coop.remove(uuid);
 			coop.put(uuid, coopList);
 		} catch (NullPointerException nullPointerException) {
 		}
 
 		try {
 			String[] completedQuests = questAPI.getPlayerQuests(uuid).split("\\;");
-
 			List<String> questList = new ArrayList<String>();
 			questList.addAll(Arrays.asList(completedQuests));
-
 			quests.put(uuid, questList);
 		} catch (NullPointerException nullPointerException) {
 		}
@@ -72,9 +69,10 @@ public class PlayerCache {
 			coinsAPI.setSkyCoins(uuid, getSkyCoinsCache(uuid));
 		}
 
-		if (coop.containsKey(uuid)) {
+		if (coop.containsKey(uuid)) {		
 			coopAPI.setCoopPartners(uuid, coop.get(uuid));
-			coop.remove(uuid);
+		} else {
+			coopAPI.setCoopPartners(uuid, null);
 		}
 
 		if (quests.containsKey(uuid)) {
@@ -149,7 +147,11 @@ public class PlayerCache {
 		List<String> users = new ArrayList<String>();
 		users.addAll(coop.get(uuid));
 		users.remove(targetUUID);
-		coop.put(uuid, users);
+		
+		if(users != null) {
+			coop.put(uuid, users);			
+		}
+		coop.remove(uuid);
 	}
 
 	public static Integer getCoopPlayerCacheSize(UUID uuid) {

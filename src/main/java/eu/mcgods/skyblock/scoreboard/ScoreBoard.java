@@ -27,8 +27,6 @@ public class ScoreBoard {
 		skyCoins.addEntry("§0");
 		if(PlayerCache.getSkyCoinsCache(uuid) != null) {
 			skyCoins.setPrefix("§7➥ §6" + PlayerCache.getSkyCoinsCache(uuid));
-		} else {
-			skyCoins.setPrefix("§7➥ §cLade SkyCoins...");
 		}
 		
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
@@ -54,8 +52,6 @@ public class ScoreBoard {
 			
 			if(PlayerCache.getSkyCoinsCache(uuid) != null) {
 				board.getTeam("SkyCoins").setPrefix("§7➥ §6" + PlayerCache.getSkyCoinsCache(uuid));
-			} else {
-				board.getTeam("SkyCoins").setPrefix("§7➥ §cLade SkyCoins...");
 			}
 		}
 	}

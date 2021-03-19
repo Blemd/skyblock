@@ -124,6 +124,15 @@ public class InventoryBuilder {
 			
 		
 		} else {
+			
+			this.skyBlockMenu_islandManage_CoopList.clear();
+			
+			for (int i = 0; i <= 8; i++) {
+				if (i != 2 && i != 3 && i != 4 && i != 5 && i != 6) {
+					this.skyBlockMenu_islandManage_CoopList.setItem(i, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
+				}
+			}
+			
 			if(coopList != null) {
 			for (int i = 0; i < coopList.size(); i++) {
 				for (int s = 2; s < 6; s++) {
@@ -231,8 +240,26 @@ public class InventoryBuilder {
 		}
 		
 		this.skyBlockMenu_Quests.setItem(2, itemBuilder.createItemWithOutLore(Material.LEATHER_HELMET, 1, "§aEinfache Quests"));
-		this.skyBlockMenu_Quests.setItem(4, itemBuilder.createItemWithOutLore(Material.IRON_HELMET, 1, "§eMittlere Quests"));
-		this.skyBlockMenu_Quests.setItem(6, itemBuilder.createItemWithOutLore(Material.DIAMOND_HELMET, 1, "§cSchwere Quests"));
+		
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()) != null) {
+			if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("easy10")) {
+				this.skyBlockMenu_Quests.setItem(4, itemBuilder.createItemWithOutLore(Material.IRON_HELMET, 1, "§eMittlere Quests"));								
+			} else {
+				this.skyBlockMenu_Quests.setItem(4, itemBuilder.createSkullWithOutLore(1, "MHF_Question", "§c???"));
+			}
+		} else {
+			this.skyBlockMenu_Quests.setItem(4, itemBuilder.createSkullWithOutLore(1, "MHF_Question", "§c???"));
+		}
+		
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()) != null) {
+			if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("mid10")) {				
+				this.skyBlockMenu_Quests.setItem(6, itemBuilder.createItemWithOutLore(Material.DIAMOND_HELMET, 1, "§cSchwere Quests"));
+			} else {
+				this.skyBlockMenu_Quests.setItem(6, itemBuilder.createSkullWithOutLore(1, "MHF_Question", "§c???"));
+			}
+		} else {
+			this.skyBlockMenu_Quests.setItem(6, itemBuilder.createSkullWithOutLore(1, "MHF_Question", "§c???"));
+		}
 		
 		p.openInventory(this.skyBlockMenu_Quests);
 	}

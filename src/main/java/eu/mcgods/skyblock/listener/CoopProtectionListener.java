@@ -16,6 +16,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.vehicle.VehicleCreateEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
@@ -212,8 +213,7 @@ public class CoopProtectionListener implements Listener {
 					if (((Projectile) e.getDamager()).getShooter() instanceof Player) {
 						if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
 							try {
-								if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID)
-										.contains(p.getUniqueId().toString())) {
+								if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
 									e.setCancelled(true);
 									p.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
 									p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
@@ -260,5 +260,31 @@ public class CoopProtectionListener implements Listener {
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent e) {
 			e.setDeathMessage(null);
+	}
+	
+	@EventHandler
+	public void onUseSomeThing(PlayerInteractEvent e) {
+		try {
+			
+			Player p = e.getPlayer();
+			World world = p.getWorld();
+			
+			UUID ownerUUID = UUID.fromString(world.getName());
+			
+			if(!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
+				try {
+					if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
+						e.setCancelled(true);
+						p.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
+						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+					}
+				} catch (NullPointerException nullPointerException) {
+					e.setCancelled(true);
+					p.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
+					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+				}
+			}
+		} catch(Exception exception) {
+		}
 	}
 }

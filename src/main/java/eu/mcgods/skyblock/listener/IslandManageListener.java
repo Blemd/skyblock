@@ -79,7 +79,6 @@ public class IslandManageListener implements Listener {
 						p.closeInventory();
 						
 						Player target = Bukkit.getPlayer(clickedPlayer);
-						System.out.println(target.getName());
 						
 						PlayerCache.removeCoopPlayerCache(p.getUniqueId(), target.getUniqueId().toString());
 						p.sendMessage(m.getPrefix() + "Der Spieler §e" + target.getName() + " §7wurde von deiner Insel entfernt.");
