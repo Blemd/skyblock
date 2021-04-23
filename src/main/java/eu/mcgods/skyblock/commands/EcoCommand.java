@@ -17,7 +17,6 @@ public class EcoCommand implements CommandExecutor {
 	private SkyCoinsAPI coinsAPI = new SkyCoinsAPI();
 	
 	@SuppressWarnings("deprecation")
-	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		try {
 

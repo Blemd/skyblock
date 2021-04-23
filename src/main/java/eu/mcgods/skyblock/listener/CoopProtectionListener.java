@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -275,13 +276,17 @@ public class CoopProtectionListener implements Listener {
 				try {
 					if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
 						e.setCancelled(true);
-						p.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
-						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+						if(!(e.getAction() == Action.LEFT_CLICK_AIR) || e.getAction() == Action.RIGHT_CLICK_AIR) {
+							p.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
+							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);	
+						}
 					}
 				} catch (NullPointerException nullPointerException) {
 					e.setCancelled(true);
-					p.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
-					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+					if(!(e.getAction() == Action.LEFT_CLICK_AIR) || e.getAction() == Action.RIGHT_CLICK_AIR) {
+						p.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
+						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);	
+					}
 				}
 			}
 		} catch(Exception exception) {

@@ -17,7 +17,6 @@ public class VisitCommand implements CommandExecutor {
 	private SkyBlock m = SkyBlock.getInstance();
 
 	@SuppressWarnings("deprecation")
-	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		try {
 

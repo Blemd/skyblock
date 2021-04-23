@@ -61,7 +61,6 @@ public class PlayerCache {
 
 		p.getInventory().setContents(playerItems);
 		p.getInventory().setArmorContents(playerArmor);
-		;
 	}
 
 	public static void deleteUserCacheData(UUID uuid) {

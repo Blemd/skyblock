@@ -17,7 +17,6 @@ public class PayCommand implements CommandExecutor {
 
 	private SkyBlock m = SkyBlock.getInstance();
 
-	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		try {
 

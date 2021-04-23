@@ -53,7 +53,6 @@ public class SkyBlock extends JavaPlugin {
 		
 		new BukkitRunnable() {
 			
-			@Override
 			public void run() {
 				for(Player all : Bukkit.getOnlinePlayers()) {
 					ScoreBoard.updateScoreboard(all.getUniqueId());
