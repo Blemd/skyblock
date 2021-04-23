@@ -71,20 +71,20 @@ public class ScoreBoard {
 			Scoreboard board = p.getScoreboard();
 
 			Team admin = board.registerNewTeam("01Admin");
-			admin.setPrefix("§c§lAdmin §8| ");
+			admin.setPrefix("§4§lAdmin §8| ");
 			admin.setColor(ChatColor.RED);
 			Team developer = board.registerNewTeam("02Developer");
 			developer.setPrefix("§3§lDev §8| ");
-			developer.setColor(ChatColor.DARK_AQUA);
+			developer.setColor(ChatColor.AQUA);
 			Team supporter = board.registerNewTeam("03Supporter");
 			supporter.setPrefix("§1§lSupporter §8| ");
-			supporter.setColor(ChatColor.DARK_BLUE);
+			supporter.setColor(ChatColor.BLUE);
 			Team builder = board.registerNewTeam("04Builder");
 			builder.setPrefix("§2§lBuilder §8| ");
-			builder.setColor(ChatColor.DARK_GREEN);
+			builder.setColor(ChatColor.GREEN);
 			Team vip = board.registerNewTeam("05VIP");
 			vip.setPrefix("§6§lVIP §8| ");
-			vip.setColor(ChatColor.GOLD);
+			vip.setColor(ChatColor.YELLOW);
 			Team player = board.registerNewTeam("06Player");
 			player.setPrefix("§7§lSpieler §8| ");
 			player.setColor(ChatColor.GRAY);

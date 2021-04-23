@@ -12,6 +12,7 @@ import eu.mcgods.skyblock.commands.PayCommand;
 import eu.mcgods.skyblock.commands.VisitCommand;
 import eu.mcgods.skyblock.database.MySQL;
 import eu.mcgods.skyblock.database.PlayerCache;
+import eu.mcgods.skyblock.listener.ChatDesign;
 import eu.mcgods.skyblock.listener.CoopProtectionListener;
 import eu.mcgods.skyblock.listener.FastTravelListener;
 import eu.mcgods.skyblock.listener.IslandManageListener;
@@ -49,6 +50,7 @@ public class SkyBlock extends JavaPlugin {
 		for(Player allOnline : Bukkit.getOnlinePlayers()) {
 			new PlayerCache(allOnline);
 			ScoreBoard.updateScoreboard(allOnline.getUniqueId());
+			ScoreBoard.updateTablist(allOnline.getUniqueId());
 		}
 		System.out.println(this.prefix + "§cCreated §e" + Bukkit.getOnlinePlayers().size() + " §cnew PlayerCache's!");
 		
@@ -86,6 +88,7 @@ public class SkyBlock extends JavaPlugin {
 		pm.registerEvents(new QuestMenuListener(), this);
 		pm.registerEvents(new QuestEasyListener(), this);
 		pm.registerEvents(new FastTravelListener(), this);
+		pm.registerEvents(new ChatDesign(), this);
 	}
 	
 	private void loadCommands() {
