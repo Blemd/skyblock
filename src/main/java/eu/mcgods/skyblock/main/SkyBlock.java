@@ -10,6 +10,7 @@ import eu.mcgods.skyblock.commands.CoopCommand;
 import eu.mcgods.skyblock.commands.EcoCommand;
 import eu.mcgods.skyblock.commands.PayCommand;
 import eu.mcgods.skyblock.commands.VisitCommand;
+import eu.mcgods.skyblock.commands.sbCommand;
 import eu.mcgods.skyblock.database.MySQL;
 import eu.mcgods.skyblock.database.PlayerCache;
 import eu.mcgods.skyblock.listener.ChatDesign;
@@ -96,6 +97,7 @@ public class SkyBlock extends JavaPlugin {
 		getCommand("visit").setExecutor(new VisitCommand());
 		getCommand("pay").setExecutor(new PayCommand());
 		getCommand("eco").setExecutor(new EcoCommand());
+		getCommand("sb").setExecutor(new sbCommand());
 	}
 	
 	private void loadConfig() {
