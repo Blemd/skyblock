@@ -276,14 +276,14 @@ public class CoopProtectionListener implements Listener {
 				try {
 					if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
 						e.setCancelled(true);
-						if(!(e.getAction() == Action.LEFT_CLICK_AIR) || e.getAction() == Action.RIGHT_CLICK_AIR) {
+						if(e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.LEFT_CLICK_AIR) {
 							p.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
 							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);	
 						}
 					}
 				} catch (NullPointerException nullPointerException) {
 					e.setCancelled(true);
-					if(!(e.getAction() == Action.LEFT_CLICK_AIR) || e.getAction() == Action.RIGHT_CLICK_AIR) {
+					if(e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.LEFT_CLICK_AIR) {
 						p.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
 						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);	
 					}

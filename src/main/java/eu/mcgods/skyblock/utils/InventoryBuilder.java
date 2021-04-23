@@ -28,6 +28,8 @@ public class InventoryBuilder {
 //	private Inventory skyBlockMenu_Quests_Mid = Bukkit.createInventory(null, 3 * 9, "§eMittlere Quests");
 //	private Inventory skyBlockMenu_Quests_Hard = Bukkit.createInventory(null, 3 * 9, "§cSchwere Quests");
 	
+	private Inventory skyBlockMenu_FastTravel = Bukkit.createInventory(null, 9, "§3Schnellreise");
+	
 	private Inventory islandNpcMenu = Bukkit.createInventory(null, 9, "§aInsel Meister");
 
 	public void loadSkyBlockMenu(Player p) {
@@ -341,11 +343,25 @@ public class InventoryBuilder {
 
 		for (int i = 0; i <= 8; i++) {
 			if (i != 4) {
-				this.islandNpcMenu.setItem(i,
-						itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
+				this.islandNpcMenu.setItem(i, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
 			}
 		}
 		this.islandNpcMenu.setItem(4, itemBuilder.BuildCustomSkullWithLore("http://textures.minecraft.net/texture/4528ed45802400f465b5c4e3a6b7a9f2b6a5b3d478b6fd84925cc5d988391c7d", "§eInsel-Erstellen", "§7➥ Erstelle deine eigene Insel für §61000 SkyCoins§7."));
 		p.openInventory(islandNpcMenu);
+	}
+	
+	public void loadFastTravelMenu(Player p) {
+		
+		this.skyBlockMenu_FastTravel.setItem(0, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
+		this.skyBlockMenu_FastTravel.setItem(1, itemBuilder.BuildCustomSkullWithLore("http://textures.minecraft.net/texture/cf40942f364f6cbceffcf1151796410286a48b1aeba77243e218026c09cd1", "§aSpawn", "§7➥ Teleportiere dich zum Spawn."));
+		this.skyBlockMenu_FastTravel.setItem(2, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
+		this.skyBlockMenu_FastTravel.setItem(3, itemBuilder.BuildCustomSkullWithLore("http://textures.minecraft.net/texture/c6cac59b2aae489aa0687b5d802b2555eb14a40bd62b21eb116fa569cdb756", "§5End", "§7➥ Teleportiere dich zum End."));
+		this.skyBlockMenu_FastTravel.setItem(4, itemBuilder.BuildCustomSkullWithLore("http://textures.minecraft.net/texture/d83571ff589f1a59bb02b80800fc736116e27c3dcf9efebede8cf1fdde", "§4Nether", "§7➥ Teleportiere dich zum Nether."));
+		this.skyBlockMenu_FastTravel.setItem(5, itemBuilder.BuildCustomSkullWithLore("http://textures.minecraft.net/texture/23afc6b82aac3036973380e8133170d06a7fbd28cd5c831d45376abd2af456a3", "§2Wald", "§7➥ Teleportiere dich zum Wald."));
+		this.skyBlockMenu_FastTravel.setItem(6, itemBuilder.BuildCustomSkullWithLore("http://textures.minecraft.net/texture/73bc965d579c3c6039f0a17eb7c2e6faf538c7a5de8e60ec7a719360d0a857a9", "§6Mine", "§7➥ Teleportiere dich zur Mine."));
+		this.skyBlockMenu_FastTravel.setItem(7, itemBuilder.BuildCustomSkullWithLore("http://textures.minecraft.net/texture/ba0c78de40fd5b588df142a09313c19580b332a69b8284f647007044b44d887a", "§9Quelle", "§7➥ Teleportiere dich zur Quelle."));
+		this.skyBlockMenu_FastTravel.setItem(8, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
+		
+		p.openInventory(this.skyBlockMenu_FastTravel);
 	}
 }
