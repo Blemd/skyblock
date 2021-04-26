@@ -90,7 +90,6 @@ public class CoopAPI {
 				}
 			} catch (SQLException sqlException) {
 				sqlException.printStackTrace();
-				System.out.println(playerList);
 			}
 		} else {
 			try {
