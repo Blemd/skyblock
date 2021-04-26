@@ -22,7 +22,7 @@ public class MySQL {
 	public void connect() {
 		if (!isConnected()) {
 			try {
-				this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + dataBase, userName, passWord);
+				this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + dataBase + "?autoReconnect=true", userName, passWord);
 				System.out.println("Die MySQL Verbindung konnte erfolgreich hergestellt werden!");
 			} catch (SQLException sqlException) {
 				sqlException.printStackTrace();

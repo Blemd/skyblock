@@ -9,6 +9,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import eu.mcgods.skyblock.commands.CoopCommand;
 import eu.mcgods.skyblock.commands.EcoCommand;
 import eu.mcgods.skyblock.commands.PayCommand;
+import eu.mcgods.skyblock.commands.SetLocationCommand;
 import eu.mcgods.skyblock.commands.VisitCommand;
 import eu.mcgods.skyblock.commands.sbCommand;
 import eu.mcgods.skyblock.database.MySQL;
@@ -98,6 +99,7 @@ public class SkyBlock extends JavaPlugin {
 		getCommand("pay").setExecutor(new PayCommand());
 		getCommand("eco").setExecutor(new EcoCommand());
 		getCommand("sb").setExecutor(new sbCommand());
+		getCommand("setLoc").setExecutor(new SetLocationCommand());
 	}
 	
 	private void loadConfig() {

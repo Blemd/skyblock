@@ -34,8 +34,9 @@ public class JoinListener implements Listener {
 		final UUID uuid = p.getUniqueId();
 		
 		ScoreBoard.setScoreboard(uuid);
+		
 		for(Player all : Bukkit.getOnlinePlayers()) {			
-			ScoreBoard.updateTablist(all.getUniqueId());
+			ScoreBoard.setScoreboard(all.getUniqueId());
 		}
 		
 		Thread thread = new Thread(new Runnable() {
