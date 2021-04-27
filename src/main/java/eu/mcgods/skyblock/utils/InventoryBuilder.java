@@ -44,7 +44,7 @@ public class InventoryBuilder {
 		}
 		this.skyBlockMenu.setItem(4, itemBuilder.createSkullWithLore(1, p.getName(), "§e" + p.getName(), "§6SkyCoins: " + PlayerCache.getSkyCoinsCache(uuid)));
 		this.skyBlockMenu.setItem(10, itemBuilder.createItemWithLore(Material.NETHER_STAR, 1, "§eVote", "§7➥ Vote für das Netzwerk und erhalte eine Belohnung."));
-		this.skyBlockMenu.setItem(16, itemBuilder.createItemWithLore(Material.REPEATER, 1, "§eSpieler-Einstellungen", "§7➥ §cKommt demnächst..."));
+		this.skyBlockMenu.setItem(16, itemBuilder.createItemWithLore(Material.REPEATER, 1, "§eSpieler-Einstellungen", "§7➥ §cKommt noch nicht."));
 		this.skyBlockMenu.setItem(20, itemBuilder.createItemWithLore(Material.PAINTING, 1, "§9Sammlungen", "§7➥ §cKommt noch nicht."));
 		this.skyBlockMenu.setItem(22, itemBuilder.createItemWithLore(Material.BOOK, 1, "§4Quests", "§7➥ Sieh dir deine aktuellen Quests an."));
 		this.skyBlockMenu.setItem(24, itemBuilder.BuildCustomSkullWithLore("http://textures.minecraft.net/texture/e4d49bae95c790c3b1ff5b2f01052a714d6185481d5b1c85930b3f99d2321674", "§2Insel-Verwalten", "§7➥ Verwalte deine Insel."));

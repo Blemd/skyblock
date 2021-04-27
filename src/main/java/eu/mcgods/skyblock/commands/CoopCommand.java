@@ -58,6 +58,9 @@ public class CoopCommand implements CommandExecutor {
 												p.sendMessage(m.getPrefix() + "Der Spieler §e" + target.getName() + " §7ist bereits zu deiner Insel hinzugefügt.");
 												p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 											}
+										} else if(PlayerCache.getCoopPlayerCacheSize(uuid) >= 4 && !p.hasPermission("skyblock.vip")) {
+											p.sendMessage(m.getPrefix() + "Du hast bereits 4 Spieler zu deiner Insel hinzugefügt!");
+											p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 										}
 									} else {
 										PlayerCache.setCoopPlayerCache(uuid, target.getUniqueId().toString());
