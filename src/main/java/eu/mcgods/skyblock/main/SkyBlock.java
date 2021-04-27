@@ -14,7 +14,7 @@ import eu.mcgods.skyblock.commands.VisitCommand;
 import eu.mcgods.skyblock.commands.sbCommand;
 import eu.mcgods.skyblock.database.MySQL;
 import eu.mcgods.skyblock.database.PlayerCache;
-import eu.mcgods.skyblock.listener.ChatDesign;
+import eu.mcgods.skyblock.listener.ChatDesignListener;
 import eu.mcgods.skyblock.listener.CoopProtectionListener;
 import eu.mcgods.skyblock.listener.FastTravelListener;
 import eu.mcgods.skyblock.listener.IslandManageListener;
@@ -90,7 +90,7 @@ public class SkyBlock extends JavaPlugin {
 		pm.registerEvents(new QuestMenuListener(), this);
 		pm.registerEvents(new QuestEasyListener(), this);
 		pm.registerEvents(new FastTravelListener(), this);
-		pm.registerEvents(new ChatDesign(), this);
+		pm.registerEvents(new ChatDesignListener(), this);
 	}
 	
 	private void loadCommands() {
