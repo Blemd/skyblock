@@ -9,7 +9,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import net.luckperms.api.LuckPermsProvider;
 
-public class ChatDesign implements Listener {
+public class ChatDesignListener implements Listener {
 
 	@EventHandler
 	public void onPlayerChat(AsyncPlayerChatEvent e) {
