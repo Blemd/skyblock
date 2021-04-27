@@ -27,7 +27,7 @@ public class QuestMenuListener implements Listener {
 						}
 					} else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§eMittlere Quests")) {
 						if(e.getCurrentItem().getType().equals(Material.IRON_HELMET)) {
-							
+							invBuilder.loadSkyBlockMenu_Quests_Mid(p);
 						}
 					} else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cSchwere Quests")) {
 						if(e.getCurrentItem().getType().equals(Material.DIAMOND_HELMET)) {
