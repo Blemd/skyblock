@@ -25,7 +25,7 @@ public class InventoryBuilder {
 	
 	private Inventory skyBlockMenu_Quests = Bukkit.createInventory(null, 9, "§4Quests");
 	private Inventory skyBlockMenu_Quests_Easy = Bukkit.createInventory(null, 3 * 9, "§aEinfache Quests");
-//	private Inventory skyBlockMenu_Quests_Mid = Bukkit.createInventory(null, 3 * 9, "§eMittlere Quests");
+	private Inventory skyBlockMenu_Quests_Mid = Bukkit.createInventory(null, 3 * 9, "§eMittlere Quests");
 //	private Inventory skyBlockMenu_Quests_Hard = Bukkit.createInventory(null, 3 * 9, "§cSchwere Quests");
 	
 	private Inventory skyBlockMenu_FastTravel = Bukkit.createInventory(null, 9, "§3Schnellreise");
@@ -297,7 +297,7 @@ public class InventoryBuilder {
 		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("easy5")) {
 			this.skyBlockMenu_Quests_Easy.setItem(8, itemBuilder.createGlowingItemWithLore(Material.FURNACE, 1, "§aBaue einen Ofen", "§8● §aAbgeschlossen"));
 		} else {
-			this.skyBlockMenu_Quests_Easy.setItem(8, itemBuilder.createItemWith3Lore(Material.FURNACE, 1, "§cBaue einen Ofen", "§7Erhalte:", "§8● §a1x 10 Kohle", "§8● §615 SkyCoins"));			
+			this.skyBlockMenu_Quests_Easy.setItem(8, itemBuilder.createItemWith3Lore(Material.FURNACE, 1, "§cBaue einen Ofen", "§7Erhalte:", "§8● §a10x Kohle", "§8● §615 SkyCoins"));			
 		}
 		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("easy6")) {
 			this.skyBlockMenu_Quests_Easy.setItem(10, itemBuilder.createGlowingItemWithLore(Material.COAL, 1, "§aSammel 16x Kohle", "§8● §aAbgeschlossen"));
@@ -329,14 +329,87 @@ public class InventoryBuilder {
 		this.skyBlockMenu_Quests_Easy.setItem(2, itemBuilder.createItemWith3Lore(Material.DIRT, 1, "§cSammel 32x Erde", "§7Erhalte:", "§8● §a4x Podsol", "§8● §635 SkyCoins"));			
 		this.skyBlockMenu_Quests_Easy.setItem(4, itemBuilder.createItemWith3Lore(Material.OAK_LOG, 1, "§cSammel 30x Eichenholz", "§7Erhalte:", "§8● §a1x Steinaxt", "§8● §610 SkyCoins"));			
 		this.skyBlockMenu_Quests_Easy.setItem(6, itemBuilder.createItemWith3Lore(Material.COBBLESTONE, 1, "§cSammel 128x Bruchstein", "§7Erhalte:", "§8● §a6x Eisenbarren", "§8● §620 SkyCoins"));			
-		this.skyBlockMenu_Quests_Easy.setItem(8, itemBuilder.createItemWith3Lore(Material.FURNACE, 1, "§cBaue einen Ofen", "§7Erhalte:", "§8● §a1x 10 Kohle", "§8● §615 SkyCoins"));			
+		this.skyBlockMenu_Quests_Easy.setItem(8, itemBuilder.createItemWith3Lore(Material.FURNACE, 1, "§cBaue einen Ofen", "§7Erhalte:", "§8● §a10x Kohle", "§8● §615 SkyCoins"));			
 		this.skyBlockMenu_Quests_Easy.setItem(10, itemBuilder.createItemWith3Lore(Material.COAL, 1, "§cSammel 16x Kohle", "§7Erhalte:", "§8● §a1x Lavaeimer", "§8● §625 SkyCoins"));			
 		this.skyBlockMenu_Quests_Easy.setItem(16, itemBuilder.createItemWith3Lore(Material.IRON_INGOT, 1, "§cSammel 32x Eisen", "§7Erhalte:", "§8● §a1x Diamant", "§8● §630 SkyCoins"));			
 		this.skyBlockMenu_Quests_Easy.setItem(20, itemBuilder.createItemWith3Lore(Material.MELON, 1, "§cSammel 256x Melonenscheiben", "§7Erhalte:", "§8● §a5x Karotten", "§8● §6100 SkyCoins"));			
-		this.skyBlockMenu_Quests_Easy.setItem(22, itemBuilder.createItemWith3Lore(Material.BEACON, 1, "§cSchließe alle einfachen Quests ab", "§7Erhalte:", "§8● §a1x Diamant", "§8● §6200 SkyCoins"));			
+		this.skyBlockMenu_Quests_Easy.setItem(22, itemBuilder.createItemWith3Lore(Material.BEACON, 1, "§cSchließe alle einfachen Quests ab", "§7Erhalte:", "§8● §a2x Diamant", "§8● §6200 SkyCoins"));			
 		this.skyBlockMenu_Quests_Easy.setItem(24, itemBuilder.createItemWith3Lore(Material.APPLE, 1, "§cSammel 48x Äpfel", "§7Erhalte:", "§8● §a1x Fichtensetzling", "§8● §650 SkyCoins"));		
 	}
 		p.openInventory(this.skyBlockMenu_Quests_Easy);
+}
+	
+	public void loadSkyBlockMenu_Quests_Mid(Player p) {
+		for(int i = 0; i <= 26; i++) {
+			if(i != 0 && i != 2 && i != 4 && i != 6 && i != 8 && i != 10 && i != 16 && i != 20 && i != 22 && i != 24) {
+				this.skyBlockMenu_Quests_Mid.setItem(i, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
+			}
+		}
+		
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()) != null) {
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("mid1")) {
+			this.skyBlockMenu_Quests_Mid.setItem(0, itemBuilder.createGlowingItemWithLore(Material.CARROT, 1, "§aSammel 64x Karotten", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Mid.setItem(0, itemBuilder.createItemWith3Lore(Material.CARROT, 1, "§cSammel 64x Karotten", "§7Erhalte:", "§8● §a10x Erde", "§8● §665 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("mid2")) {
+			this.skyBlockMenu_Quests_Mid.setItem(2, itemBuilder.createGlowingItemWithLore(Material.POTATO, 1, "§aSammel 64x Kartoffeln", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Mid.setItem(2, itemBuilder.createItemWith3Lore(Material.POTATO, 1, "§cSammel 64x Kartoffeln", "§7Erhalte:", "§8● §a10x Erde", "§8● §670 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("mid3")) {
+			this.skyBlockMenu_Quests_Mid.setItem(4, itemBuilder.createGlowingItemWithLore(Material.BEETROOT, 1, "§aSammel 64x Rote Bete", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Mid.setItem(4, itemBuilder.createItemWith3Lore(Material.BEETROOT, 1, "§cSammel 64x Rote Bete", "§7Erhalte:", "§8● §a10x Erde", "§8● §675 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("mid4")) {
+			this.skyBlockMenu_Quests_Mid.setItem(6, itemBuilder.createGlowingItemWithLore(Material.GOLD_INGOT, 1, "§aSammel 64x Gold", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Mid.setItem(6, itemBuilder.createItemWith3Lore(Material.GOLD_INGOT, 1, "§cSammel 64x Gold", "§7Erhalte:", "§8● §a2x Obsidian", "§8● §685 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("mid5")) {
+			this.skyBlockMenu_Quests_Mid.setItem(8, itemBuilder.createGlowingItemWithLore(Material.LAPIS_LAZULI, 1, "§aSammel 128x Lapislazuli", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Mid.setItem(8, itemBuilder.createItemWith3Lore(Material.LAPIS_LAZULI, 1, "§cSammel 128x Lapislazuli", "§7Erhalte:", "§8● §a2x Obsidian", "§8● §690 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("mid6")) {
+			this.skyBlockMenu_Quests_Mid.setItem(10, itemBuilder.createGlowingItemWithLore(Material.ENCHANTING_TABLE, 1, "§aBaue einen Zaubertisch", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Mid.setItem(10, itemBuilder.createItemWith3Lore(Material.ENCHANTING_TABLE, 1, "§cBaue einen Zaubertisch", "§7Erhalte:", "§8● §a4x Obsidian", "§8● §6100 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("mid7")) {
+			this.skyBlockMenu_Quests_Mid.setItem(16, itemBuilder.createGlowingItemWithLore(Material.DIAMOND, 1, "§aSammel 15x Diamanten", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Mid.setItem(16, itemBuilder.createItemWith3Lore(Material.DIAMOND, 1, "§cSammel 15x Diamanten", "§7Erhalte:", "§8● §a1x Netheritebarren", "§8● §6110 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("mid8")) {
+			this.skyBlockMenu_Quests_Mid.setItem(20, itemBuilder.createGlowingItemWithLore(Material.ROTTEN_FLESH, 1, "§aSammel 128x Zombiefleisch", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Mid.setItem(20, itemBuilder.createItemWith3Lore(Material.ROTTEN_FLESH, 1, "§cSammel 128x Zombiefleisch", "§7Erhalte:", "§8● §a3x Diamanten", "§8● §6115 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("mid10")) {
+			this.skyBlockMenu_Quests_Mid.setItem(22, itemBuilder.createGlowingItemWithLore(Material.BEACON, 1, "§aSchließe alle mittleren Quests ab", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Mid.setItem(22, itemBuilder.createItemWith3Lore(Material.BEACON, 1, "§cSchließe alle mittleren Quests ab", "§7Erhalte:", "§8● §a4x Diamant", "§8● §6400 SkyCoins"));			
+		}
+		if(PlayerCache.getPlayerQuestCache(p.getUniqueId()).contains("mid9")) {
+			this.skyBlockMenu_Quests_Mid.setItem(24, itemBuilder.createGlowingItemWithLore(Material.BONE, 1, "§aSammel 128x Knochen", "§8● §aAbgeschlossen"));
+		} else {
+			this.skyBlockMenu_Quests_Mid.setItem(24, itemBuilder.createItemWith3Lore(Material.BONE, 1, "§cSammel 128x Knochen", "§7Erhalte:", "§8● §a3x Diamanten", "§8● §6115 SkyCoins"));			
+			}
+	} else {
+		this.skyBlockMenu_Quests_Mid.setItem(0, itemBuilder.createItemWith3Lore(Material.CARROT, 1, "§cSammel 64x Karotten", "§7Erhalte:", "§8● §a10x Erde", "§8● §665 SkyCoins"));			
+		this.skyBlockMenu_Quests_Mid.setItem(2, itemBuilder.createItemWith3Lore(Material.POTATO, 1, "§cSammel 64x Kartoffeln", "§7Erhalte:", "§8● §a10x Erde", "§8● §670 SkyCoins"));			
+		this.skyBlockMenu_Quests_Mid.setItem(4, itemBuilder.createItemWith3Lore(Material.BEETROOT, 1, "§cSammel 64x Rote Bete", "§7Erhalte:", "§8● §a10x Erde", "§8● §675 SkyCoins"));			
+		this.skyBlockMenu_Quests_Mid.setItem(6, itemBuilder.createItemWith3Lore(Material.GOLD_INGOT, 1, "§cSammel 64x Gold", "§7Erhalte:", "§8● §a2x Obsidian", "§8● §685 SkyCoins"));			
+		this.skyBlockMenu_Quests_Mid.setItem(8, itemBuilder.createItemWith3Lore(Material.LAPIS_LAZULI, 1, "§cSammel 128x Lapislazuli", "§7Erhalte:", "§8● §a2x Obsidian", "§8● §690 SkyCoins"));			
+		this.skyBlockMenu_Quests_Mid.setItem(10, itemBuilder.createItemWith3Lore(Material.ENCHANTING_TABLE, 1, "§cBaue einen Zaubertisch", "§7Erhalte:", "§8● §a4x Obsidian", "§8● §6100 SkyCoins"));			
+		this.skyBlockMenu_Quests_Mid.setItem(16, itemBuilder.createItemWith3Lore(Material.DIAMOND, 1, "§cSammel 15x Diamanten", "§7Erhalte:", "§8● §a1x Netheritebarren", "§8● §6110 SkyCoins"));			
+		this.skyBlockMenu_Quests_Mid.setItem(20, itemBuilder.createItemWith3Lore(Material.ROTTEN_FLESH, 1, "§cSammel 128x Zombiefleisch", "§7Erhalte:", "§8● §a3x Diamanten", "§8● §6115 SkyCoins"));			
+		this.skyBlockMenu_Quests_Mid.setItem(22, itemBuilder.createItemWith3Lore(Material.BEACON, 1, "§cSchließe alle mittleren Quests ab", "§7Erhalte:", "§8● §a4x Diamant", "§8● §6400 SkyCoins"));			
+		this.skyBlockMenu_Quests_Mid.setItem(24, itemBuilder.createItemWith3Lore(Material.BONE, 1, "§cSammel 128x Knochen", "§7Erhalte:", "§8● §a3x Diamanten", "§8● §6115 SkyCoins"));		
+	}
+		p.openInventory(this.skyBlockMenu_Quests_Mid);
 }
 	
 	public void loadIslandNpcMenu(Player p) {
