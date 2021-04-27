@@ -5,10 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.UUID;
 
 public class MySQL {
-
+	
 	private Connection connection;
 
 	private String host;
@@ -20,9 +21,16 @@ public class MySQL {
 
 	// Connect to database
 	public void connect() {
+		
+		final Properties prop = new Properties();
+		prop.setProperty("user", this.userName);
+		prop.setProperty("password", this.passWord);
+		prop.setProperty("useSSL", "false");
+		prop.setProperty("autoReconnect", "true");
+		
 		if (!isConnected()) {
 			try {
-				this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + dataBase + "?autoReconnect=true", userName, passWord);
+				this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + dataBase, prop);
 				System.out.println("Die MySQL Verbindung konnte erfolgreich hergestellt werden!");
 			} catch (SQLException sqlException) {
 				sqlException.printStackTrace();
@@ -50,6 +58,7 @@ public class MySQL {
 			this.connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + this.table + "_inventar (ID INT PRIMARY KEY AUTO_INCREMENT, uuid VARCHAR(100), inventar TEXT(1431655765))").executeUpdate();
 			this.connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + this.table + "_quest (ID INT PRIMARY KEY AUTO_INCREMENT, uuid VARCHAR(100), completedquests LONGTEXT)").executeUpdate();
 			this.connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + this.table + "_coop (ID INT PRIMARY KEY AUTO_INCREMENT, world VARCHAR(100), memberlist TEXT(1431655765))").executeUpdate();
+//			this.connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + this.table + "_userlog (ID INT PRIMARY KEY AUTO_INCREMENT, uuid VARCHAR(100), ip VARCHAR(100), lastlogin TIMESTAMP(), lastlogout TIMESTAMP(), messsages LONGTEXT").executeUpdate();
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 		}
