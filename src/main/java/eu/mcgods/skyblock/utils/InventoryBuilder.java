@@ -14,7 +14,7 @@ import eu.mcgods.skyblock.database.PlayerCache;
 
 public class InventoryBuilder {
 
-	private Inventory skyBlockMenu = Bukkit.createInventory(null, 6 * 9, "§a§lSkyblock-Menü");
+	private Inventory skyBlockMenu;
 	
 	private Inventory skyBlockMenu_islandManage = Bukkit.createInventory(null, 9, "§2Insel-Verwalten");
 	private Inventory skyBlockMenu_islandManage_CoopList = Bukkit.createInventory(null, 9, "§2Insel-Verwalten");
@@ -34,6 +34,8 @@ public class InventoryBuilder {
 
 	public void loadSkyBlockMenu(Player p) {
 
+		this.skyBlockMenu = Bukkit.createInventory(null, 6 * 9, "§a§lSkyblock-Menü");
+		
 		UUID uuid = p.getUniqueId();
 
 		for (int i = 0; i <= 53; i++) {

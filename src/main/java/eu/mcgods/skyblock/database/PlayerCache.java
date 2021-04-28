@@ -16,7 +16,7 @@ import eu.mcgods.skyblock.utils.InventorySave;
 
 public class PlayerCache {
 
-	private InventoryAPI invAPI = new InventoryAPI();
+	private static InventoryAPI invAPI = new InventoryAPI();
 	private static SkyCoinsAPI coinsAPI = new SkyCoinsAPI();
 	private static CoopAPI coopAPI = new CoopAPI();
 	private static QuestAPI questAPI = new QuestAPI();
@@ -78,7 +78,9 @@ public class PlayerCache {
 			questAPI.setPlayerQuests(uuid, quests.get(uuid));
 			quests.remove(uuid);
 		}
-
+		
+		invAPI.setInv(uuid);
+		
 		skyCoins.remove(uuid);
 		itemContents.remove(uuid);
 		armorContents.remove(uuid);

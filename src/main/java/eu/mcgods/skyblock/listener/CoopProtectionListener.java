@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.bukkit.Sound;
 import org.bukkit.World;
+import org.bukkit.command.defaults.ReloadCommand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
@@ -16,6 +17,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.vehicle.VehicleCreateEvent;
@@ -188,73 +190,85 @@ public class CoopProtectionListener implements Listener {
 
 	@EventHandler
 	public void FrameDestroy(EntityDamageByEntityEvent e) {
-		try {
-			Player p = (Player) e.getDamager();
-			World world = p.getWorld();
-
-			UUID ownerUUID = UUID.fromString(world.getName());
 
 			if (e.getEntity() instanceof ItemFrame) {
-				if (e.getDamager() instanceof Player) {
-					if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
-						try {
-							if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
-								e.setCancelled(true);
-								p.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
-								p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
-							}
-						} catch (NullPointerException nullPointerException) {
+				
+				Player damager = (Player) e.getDamager();
+				
+				World world = e.getEntity().getWorld();
+
+				UUID ownerUUID = UUID.fromString(world.getName());
+				
+				if (!world.getName().equalsIgnoreCase(damager.getUniqueId().toString())) {
+					try {
+						if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(damager.getUniqueId().toString())) {
 							e.setCancelled(true);
-							p.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
-							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+							damager.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
+							damager.playSound(damager.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 						}
+					} catch (NullPointerException nullPointerException) {
+						e.setCancelled(true);
+						damager.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
+						damager.playSound(damager.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 					}
 				}
-				if (e.getDamager() instanceof Projectile) {
-					if (((Projectile) e.getDamager()).getShooter() instanceof Player) {
-						if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
-							try {
-								if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
-									e.setCancelled(true);
-									p.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
-									p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
-								}
-							} catch (NullPointerException nullPointerException) {
-								e.setCancelled(true);
-								p.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
-								p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
-							}
-						}
-					}
+					
+//					if (e.getDamager() instanceof Projectile) {
+//						if (((Projectile) e.getDamager()).getShooter() instanceof Player) {
+//							if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
+//								try {
+//									if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
+//										e.setCancelled(true);
+//										p.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
+//										p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+//									}
+//								} catch (NullPointerException nullPointerException) {
+//									e.setCancelled(true);
+//									p.sendMessage(m.getPrefix() + "Du kannst das hier nicht.");
+//									p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+//								}
+//							}
+//						}
+//					}
 				}
 			}
-		} catch (Exception exception) {
-		}
-	}
 
 	@EventHandler
-	public void onPlayerGetDamage(EntityDamageEvent e) {
-		try {
-
-			Player p = (Player) e.getEntity();
-			World world = p.getWorld();
-
-			UUID ownerUUID = UUID.fromString(world.getName());
-
-			if (e.getEntity() instanceof Player) {
-				if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
-					if (!(p.getLocation().getBlockY() <= 0)) {
-						try {
-							if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
-								e.setCancelled(true);
-							}
-						} catch (NullPointerException nullPointerException) {
+	public void onPlayerGetDamage(EntityDamageByEntityEvent e) {
+		
+		
+		if(e.getEntity() instanceof Player) {
+			
+		Player p = (Player) e.getEntity();
+		Player damager = (Player) e.getDamager();
+		
+		World world = p.getWorld();
+			
+			if (world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
+				if(PlayerCache.getCoopPlayerCacheUUIDs(p.getUniqueId()) != null) {
+					if(!PlayerCache.getCoopPlayerCacheUUIDs(p.getUniqueId()).contains(damager.getUniqueId().toString())) {
+						if (!e.getCause().equals(DamageCause.VOID)) {
+							e.setCancelled(true);
+						}
+					}	
+				} else {
+					if(!e.getCause().equals(DamageCause.VOID)) {					
+						e.setCancelled(true);
+					}
+				}
+			} else if (world.getName().equalsIgnoreCase(damager.getUniqueId().toString())) {
+				try {
+					if(!PlayerCache.getCoopPlayerCacheUUIDs(damager.getUniqueId()).contains(p.getUniqueId().toString())) {
+						if(!e.getCause().equals(DamageCause.VOID)) {
 							e.setCancelled(true);
 						}
 					}
+				} catch (NullPointerException nullPointerException) {
+					if(!e.getCause().equals(DamageCause.VOID)) {
+						e.setCancelled(true);
+					}
 				}
-			}
-		} catch (Exception exception) {
+			}	
 		}
 	}
 	
