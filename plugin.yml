@@ -3,6 +3,7 @@ author: Hondazockt
 version: 0.1
 api-version: 1.16
 main: eu.mcgods.skyblock.main.SkyBlock
+load: STARTUP
 
 commands:
   coop:
