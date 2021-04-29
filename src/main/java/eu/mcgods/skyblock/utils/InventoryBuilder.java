@@ -205,27 +205,27 @@ public class InventoryBuilder {
 			}
 		}
 		
-		if(Bukkit.getWorld(p.getUniqueId().toString()).getWorldBorder().getSize() == 16*6D) {
+		if(PlayerCache.getIslandSizeCache(p.getUniqueId()) == 1) {
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(2, itemBuilder.createItemWithLore(Material.LEATHER_HORSE_ARMOR, 1, "§cStufe-1", "§7Kostet: §62000 SkyCoins"));
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(3, itemBuilder.createItemWithLore(Material.IRON_HORSE_ARMOR, 1, "§cStufe-2", "§7Kostet: §65000 SkyCoins"));
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(4, itemBuilder.createItemWithLore(Material.GOLDEN_HORSE_ARMOR, 1, "§cStufe-3", "§7Kostet: §610000 SkyCoins"));
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(5, itemBuilder.createItemWithLore(Material.DIAMOND_HORSE_ARMOR, 1, "§cStufe-4", "§7Kostet: §620000 SkyCoins"));
-		} else if (Bukkit.getWorld(p.getUniqueId().toString()).getWorldBorder().getSize() == 16*8D) {
+		} else if (PlayerCache.getIslandSizeCache(p.getUniqueId()) == 2) {
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(2, itemBuilder.createGlowingItemWithLore(Material.LEATHER_HORSE_ARMOR, 1, "§aStufe-1", "§7Gekauft"));
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(3, itemBuilder.createItemWithLore(Material.IRON_HORSE_ARMOR, 1, "§cStufe-2", "§7Kostet: §65000 SkyCoins"));
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(4, itemBuilder.createItemWithLore(Material.GOLDEN_HORSE_ARMOR, 1, "§cStufe-3", "§7Kostet: §610000 SkyCoins"));
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(5, itemBuilder.createItemWithLore(Material.DIAMOND_HORSE_ARMOR, 1, "§cStufe-4", "§7Kostet: §620000 SkyCoins"));
-		} else if (Bukkit.getWorld(p.getUniqueId().toString()).getWorldBorder().getSize() == 16*10D) {
+		} else if (PlayerCache.getIslandSizeCache(p.getUniqueId()) == 3) {
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(2, itemBuilder.createGlowingItemWithLore(Material.LEATHER_HORSE_ARMOR, 1, "§aStufe-1", "§7Gekauft"));
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(3, itemBuilder.createGlowingItemWithLore(Material.IRON_HORSE_ARMOR, 1, "§aStufe-2", "§7Gekauft"));
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(4, itemBuilder.createItemWithLore(Material.GOLDEN_HORSE_ARMOR, 1, "§cStufe-3", "§7Kostet: §610000 SkyCoins"));
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(5, itemBuilder.createItemWithLore(Material.DIAMOND_HORSE_ARMOR, 1, "§cStufe-4", "§7Kostet: §620000 SkyCoins"));
-		} else if (Bukkit.getWorld(p.getUniqueId().toString()).getWorldBorder().getSize() == 16*12D) {
+		} else if (PlayerCache.getIslandSizeCache(p.getUniqueId()) == 4) {
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(2, itemBuilder.createGlowingItemWithLore(Material.LEATHER_HORSE_ARMOR, 1, "§aStufe-1", "§7Gekauft"));
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(3, itemBuilder.createGlowingItemWithLore(Material.IRON_HORSE_ARMOR, 1, "§aStufe-2", "§7Gekauft"));
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(4, itemBuilder.createGlowingItemWithLore(Material.GOLDEN_HORSE_ARMOR, 1, "§aStufe-3", "§7Gekauft"));
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(5, itemBuilder.createItemWithLore(Material.DIAMOND_HORSE_ARMOR, 1, "§cStufe-4", "§7Kostet: §620000 SkyCoins"));
-		} else if (Bukkit.getWorld(p.getUniqueId().toString()).getWorldBorder().getSize() == 16*14D) {
+		} else if (PlayerCache.getIslandSizeCache(p.getUniqueId()) == 5) {
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(2, itemBuilder.createGlowingItemWithLore(Material.LEATHER_HORSE_ARMOR, 1, "§aStufe-1", "§7Gekauft"));
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(3, itemBuilder.createGlowingItemWithLore(Material.IRON_HORSE_ARMOR, 1, "§aStufe-2", "§7Gekauft"));
 			this.skyBlockMenu_IslandUpgrades_IslandBorder.setItem(4, itemBuilder.createGlowingItemWithLore(Material.GOLDEN_HORSE_ARMOR, 1, "§aStufe-3", "§7Gekauft"));

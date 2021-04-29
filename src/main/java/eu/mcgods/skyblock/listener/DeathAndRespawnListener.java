@@ -17,6 +17,9 @@ public class DeathAndRespawnListener implements Listener {
 	
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
+		
+		e.setDeathMessage(null);
+		
 		try {
 			
 			if(e.getDrops() != null) {

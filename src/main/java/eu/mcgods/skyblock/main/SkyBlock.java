@@ -15,9 +15,10 @@ import eu.mcgods.skyblock.commands.sbCommand;
 import eu.mcgods.skyblock.database.MySQL;
 import eu.mcgods.skyblock.database.PlayerCache;
 import eu.mcgods.skyblock.listener.ChatDesignListener;
-import eu.mcgods.skyblock.listener.CoopProtectionListener;
 import eu.mcgods.skyblock.listener.DeathAndRespawnListener;
 import eu.mcgods.skyblock.listener.FastTravelListener;
+import eu.mcgods.skyblock.listener.IslandBuildListener;
+import eu.mcgods.skyblock.listener.IslandDamageListener;
 import eu.mcgods.skyblock.listener.IslandManageListener;
 import eu.mcgods.skyblock.listener.IslandNpcListener;
 import eu.mcgods.skyblock.listener.IslandUpgradeListener;
@@ -87,7 +88,6 @@ public class SkyBlock extends JavaPlugin {
 		pm.registerEvents(new SkyBlockMenuItemListener(), this);
 		pm.registerEvents(new SkyBlockMenuListener(), this);
 		pm.registerEvents(new IslandNpcListener(), this);
-		pm.registerEvents(new CoopProtectionListener(), this);
 		pm.registerEvents(new IslandManageListener(), this);
 		pm.registerEvents(new IslandUpgradeListener(), this);
 		pm.registerEvents(new QuestMenuListener(), this);
@@ -97,6 +97,8 @@ public class SkyBlock extends JavaPlugin {
 		pm.registerEvents(new ChatDesignListener(), this);
 		pm.registerEvents(new DeathAndRespawnListener(), this);
 		pm.registerEvents(new LeafDecayListener(), this);
+		pm.registerEvents(new IslandBuildListener(), this);
+		pm.registerEvents(new IslandDamageListener(), this);
 	}
 	
 	private void loadCommands() {

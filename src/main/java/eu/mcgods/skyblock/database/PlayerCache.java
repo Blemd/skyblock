@@ -17,6 +17,7 @@ import eu.mcgods.skyblock.utils.InventorySave;
 public class PlayerCache {
 
 	private static InventoryAPI invAPI = new InventoryAPI();
+	private static IslandSizeAPI sizeAPI = new IslandSizeAPI();
 	private static SkyCoinsAPI coinsAPI = new SkyCoinsAPI();
 	private static CoopAPI coopAPI = new CoopAPI();
 	private static QuestAPI questAPI = new QuestAPI();
@@ -25,6 +26,8 @@ public class PlayerCache {
 	private static Map<UUID, ItemStack[]> itemContents = new HashMap<UUID, ItemStack[]>();
 	private static Map<UUID, ItemStack[]> armorContents = new HashMap<UUID, ItemStack[]>();
 
+	private static Map<UUID, Integer> islandSize = new HashMap<UUID, Integer>();
+	
 	private static Map<UUID, List<String>> quests = new HashMap<UUID, List<String>>();
 
 	private static Map<UUID, List<String>> coop = new HashMap<UUID, List<String>>();
@@ -54,6 +57,12 @@ public class PlayerCache {
 			quests.put(uuid, questList);
 		} catch (NullPointerException nullPointerException) {
 		}
+		
+		try {
+			int size = sizeAPI.getIslandSize(uuid);
+			islandSize.put(uuid, size);
+		} catch (NullPointerException nullPointerException) {
+		}
 
 		skyCoins.put(uuid, playerSkyCoins);
 		itemContents.put(uuid, playerItems);
@@ -77,6 +86,11 @@ public class PlayerCache {
 		if (quests.containsKey(uuid)) {
 			questAPI.setPlayerQuests(uuid, quests.get(uuid));
 			quests.remove(uuid);
+		}
+		
+		if(islandSize.containsKey(uuid)) {
+			sizeAPI.setIslandSize(uuid, islandSize.get(uuid));
+			islandSize.remove(uuid);
 		}
 		
 		invAPI.setInv(uuid);
@@ -236,5 +250,15 @@ public class PlayerCache {
 		} catch (NullPointerException nullPointerException) {
 			return null;
 		}
+	}
+	
+	// Setter & Getter for islandSize
+	
+	public static void setIslandSizeCache(UUID uuid, Integer size) {
+		islandSize.put(uuid, size);
+	}
+	
+	public static Integer getIslandSizeCache(UUID uuid) {
+		return islandSize.get(uuid);
 	}
 }

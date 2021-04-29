@@ -41,7 +41,7 @@ public class IslandUpgradeListener implements Listener {
 							if(PlayerCache.getSkyCoinsCache(p.getUniqueId()) >= 2000) {
 								p.closeInventory();
 								PlayerCache.removeSkyCoinsCache(p.getUniqueId(), 2000);
-								Bukkit.getWorld(p.getUniqueId().toString()).getWorldBorder().setSize(16*8D);
+								PlayerCache.setIslandSizeCache(p.getUniqueId(), 2);
 								p.sendMessage(m.getPrefix() + "Deine Insel wurde vergrößert.");
 								p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
 							} else {
@@ -55,7 +55,7 @@ public class IslandUpgradeListener implements Listener {
 							if(PlayerCache.getSkyCoinsCache(p.getUniqueId()) >= 5000) {
 								p.closeInventory();
 								PlayerCache.removeSkyCoinsCache(p.getUniqueId(), 5000);
-								Bukkit.getWorld(p.getUniqueId().toString()).getWorldBorder().setSize(16*10D);
+								PlayerCache.setIslandSizeCache(p.getUniqueId(), 3);
 								p.sendMessage(m.getPrefix() + "Deine Insel wurde vergrößert.");
 								p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
 							} else {
@@ -69,7 +69,7 @@ public class IslandUpgradeListener implements Listener {
 							if(PlayerCache.getSkyCoinsCache(p.getUniqueId()) >= 10000) {
 								p.closeInventory();
 								PlayerCache.removeSkyCoinsCache(p.getUniqueId(), 10000);
-								Bukkit.getWorld(p.getUniqueId().toString()).getWorldBorder().setSize(16*12D);
+								PlayerCache.setIslandSizeCache(p.getUniqueId(), 4);
 								p.sendMessage(m.getPrefix() + "Deine Insel wurde vergrößert.");
 								p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
 							} else {
@@ -83,7 +83,7 @@ public class IslandUpgradeListener implements Listener {
 							if(PlayerCache.getSkyCoinsCache(p.getUniqueId()) >= 20000) {
 								p.closeInventory();
 								PlayerCache.removeSkyCoinsCache(p.getUniqueId(), 20000);
-								Bukkit.getWorld(p.getUniqueId().toString()).getWorldBorder().setSize(16*14D);
+								PlayerCache.setIslandSizeCache(p.getUniqueId(), 5);
 								p.sendMessage(m.getPrefix() + "Deine Insel wurde vergrößert.");
 								p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
 							} else {
