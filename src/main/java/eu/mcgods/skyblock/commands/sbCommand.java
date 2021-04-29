@@ -37,6 +37,7 @@ public class sbCommand implements CommandExecutor {
 					cooldown.put(p.getUniqueId(), Long.valueOf(System.currentTimeMillis()));
 					p.sendMessage("§8▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬§a§lSkyBlock§8▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
 							+ "\n" + " "
+							+ "\n" + "§e/is §7Teleportiere dich zu deiner Insel"
 							+ "\n" + "§e/pay <Spieler> <Betrag> §7Überweise einem anderen Spieler Geld" 
 							+ "\n" + "§e/visit <Spieler> §7Teleportiere dich zu der Insel eines Spielers" 
 							+ "\n" + "§e/coop add <Spieler> §7Füge einen Spieler zu deiner Insel hinzu"

@@ -11,6 +11,7 @@ import eu.mcgods.skyblock.commands.EcoCommand;
 import eu.mcgods.skyblock.commands.PayCommand;
 import eu.mcgods.skyblock.commands.SetLocationCommand;
 import eu.mcgods.skyblock.commands.VisitCommand;
+import eu.mcgods.skyblock.commands.isCommand;
 import eu.mcgods.skyblock.commands.sbCommand;
 import eu.mcgods.skyblock.database.MySQL;
 import eu.mcgods.skyblock.database.PlayerCache;
@@ -108,6 +109,7 @@ public class SkyBlock extends JavaPlugin {
 		getCommand("eco").setExecutor(new EcoCommand());
 		getCommand("sb").setExecutor(new sbCommand());
 		getCommand("setLoc").setExecutor(new SetLocationCommand());
+		getCommand("is").setExecutor(new isCommand());
 	}
 	
 	private void loadConfig() {
