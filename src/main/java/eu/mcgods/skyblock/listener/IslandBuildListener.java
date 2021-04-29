@@ -16,8 +16,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
-import org.bukkit.event.hanging.HangingBreakEvent;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.vehicle.VehicleCreateEvent;
@@ -34,62 +32,18 @@ public class IslandBuildListener implements Listener {
 		Player p = e.getPlayer();
 		World world = p.getWorld();
 		Block checkBlock = e.getBlockAgainst();
-		UUID ownerUUID = UUID.fromString(world.getName());
 
-		Location loc = world.getBlockAt(0, 100, 0).getLocation();
+		if (!world.getName().equals("Hub") && !world.getName().equals("Wald") && !world.getName().equals("End")
+				&& !world.getName().equals("Mine") && !world.getName().equals("Nether")
+				&& !world.getName().equals("Quelle")) {
+			UUID ownerUUID = UUID.fromString(world.getName());
 
-		ArrayList<Location> locs = new ArrayList<Location>();
+			Location loc = world.getBlockAt(0, 100, 0).getLocation();
 
-		if (world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
-			if (PlayerCache.getIslandSizeCache(p.getUniqueId()) == 1) {
-				for (int x = (loc.getBlockX() - 50); x <= (loc.getBlockX() + 50); x++) {
-					for (int z = (loc.getBlockZ() - 50); z <= (loc.getBlockZ() + 50); z++) {
-						for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
-							Location l = new Location(loc.getWorld(), x, y, z);
-							locs.add(l);
-						}
-					}
-				}
-			} else if (PlayerCache.getIslandSizeCache(ownerUUID) == 2) {
-				for (int x = (loc.getBlockX() - 60); x <= (loc.getBlockX() + 60); x++) {
-					for (int z = (loc.getBlockZ() - 60); z <= (loc.getBlockZ() + 60); z++) {
-						for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
-							Location l = new Location(loc.getWorld(), x, y, z);
-							locs.add(l);
-						}
-					}
-				}
-			} else if (PlayerCache.getIslandSizeCache(ownerUUID) == 3) {
-				for (int x = (loc.getBlockX() - 70); x <= (loc.getBlockX() + 70); x++) {
-					for (int z = (loc.getBlockZ() - 70); z <= (loc.getBlockZ() + 70); z++) {
-						for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
-							Location l = new Location(loc.getWorld(), x, y, z);
-							locs.add(l);
-						}
-					}
-				}
-			} else if (PlayerCache.getIslandSizeCache(ownerUUID) == 4) {
-				for (int x = (loc.getBlockX() - 80); x <= (loc.getBlockX() + 80); x++) {
-					for (int z = (loc.getBlockZ() - 80); z <= (loc.getBlockZ() + 80); z++) {
-						for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
-							Location l = new Location(loc.getWorld(), x, y, z);
-							locs.add(l);
-						}
-					}
-				}
-			} else if (PlayerCache.getIslandSizeCache(ownerUUID) == 5) {
-				for (int x = (loc.getBlockX() - 90); x <= (loc.getBlockX() + 90); x++) {
-					for (int z = (loc.getBlockZ() - 90); z <= (loc.getBlockZ() + 90); z++) {
-						for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
-							Location l = new Location(loc.getWorld(), x, y, z);
-							locs.add(l);
-						}
-					}
-				}
-			}
-		} else {
-			if (PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
-				if (PlayerCache.getIslandSizeCache(ownerUUID) == 1) {
+			ArrayList<Location> locs = new ArrayList<Location>();
+
+			if (world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
+				if (PlayerCache.getIslandSizeCache(p.getUniqueId()) == 1) {
 					for (int x = (loc.getBlockX() - 50); x <= (loc.getBlockX() + 50); x++) {
 						for (int z = (loc.getBlockZ() - 50); z <= (loc.getBlockZ() + 50); z++) {
 							for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
@@ -136,13 +90,62 @@ public class IslandBuildListener implements Listener {
 					}
 				}
 			} else {
-				p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+				if (PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
+					if (PlayerCache.getIslandSizeCache(ownerUUID) == 1) {
+						for (int x = (loc.getBlockX() - 50); x <= (loc.getBlockX() + 50); x++) {
+							for (int z = (loc.getBlockZ() - 50); z <= (loc.getBlockZ() + 50); z++) {
+								for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
+									Location l = new Location(loc.getWorld(), x, y, z);
+									locs.add(l);
+								}
+							}
+						}
+					} else if (PlayerCache.getIslandSizeCache(ownerUUID) == 2) {
+						for (int x = (loc.getBlockX() - 60); x <= (loc.getBlockX() + 60); x++) {
+							for (int z = (loc.getBlockZ() - 60); z <= (loc.getBlockZ() + 60); z++) {
+								for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
+									Location l = new Location(loc.getWorld(), x, y, z);
+									locs.add(l);
+								}
+							}
+						}
+					} else if (PlayerCache.getIslandSizeCache(ownerUUID) == 3) {
+						for (int x = (loc.getBlockX() - 70); x <= (loc.getBlockX() + 70); x++) {
+							for (int z = (loc.getBlockZ() - 70); z <= (loc.getBlockZ() + 70); z++) {
+								for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
+									Location l = new Location(loc.getWorld(), x, y, z);
+									locs.add(l);
+								}
+							}
+						}
+					} else if (PlayerCache.getIslandSizeCache(ownerUUID) == 4) {
+						for (int x = (loc.getBlockX() - 80); x <= (loc.getBlockX() + 80); x++) {
+							for (int z = (loc.getBlockZ() - 80); z <= (loc.getBlockZ() + 80); z++) {
+								for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
+									Location l = new Location(loc.getWorld(), x, y, z);
+									locs.add(l);
+								}
+							}
+						}
+					} else if (PlayerCache.getIslandSizeCache(ownerUUID) == 5) {
+						for (int x = (loc.getBlockX() - 90); x <= (loc.getBlockX() + 90); x++) {
+							for (int z = (loc.getBlockZ() - 90); z <= (loc.getBlockZ() + 90); z++) {
+								for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
+									Location l = new Location(loc.getWorld(), x, y, z);
+									locs.add(l);
+								}
+							}
+						}
+					}
+				} else {
+					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+				}
 			}
-		}
-		if (!locs.contains(e.getBlock().getLocation())) {
-			e.setCancelled(true);
-			p.playSound(p.getLocation(), Sound.BLOCK_CHAIN_HIT, 1.0F, 1.0F);
-			p.spawnParticle(Particle.SMOKE_NORMAL, checkBlock.getLocation(), 1);
+			if (!locs.contains(e.getBlock().getLocation())) {
+				e.setCancelled(true);
+				p.playSound(p.getLocation(), Sound.BLOCK_CHAIN_HIT, 1.0F, 1.0F);
+				p.spawnParticle(Particle.SMOKE_NORMAL, checkBlock.getLocation(), 1);
+			}
 		}
 	}
 
@@ -152,62 +155,18 @@ public class IslandBuildListener implements Listener {
 		Player p = e.getPlayer();
 		Block breakedBlock = e.getBlock();
 		World world = breakedBlock.getWorld();
-		UUID ownerUUID = UUID.fromString(world.getName());
 
-		Location loc = world.getBlockAt(0, 100, 0).getLocation();
+		if (!world.getName().equals("Hub") && !world.getName().equals("Wald") && !world.getName().equals("End")
+				&& !world.getName().equals("Mine") && !world.getName().equals("Nether")
+				&& !world.getName().equals("Quelle")) {
+			UUID ownerUUID = UUID.fromString(world.getName());
 
-		ArrayList<Block> blocks = new ArrayList<Block>();
+			Location loc = world.getBlockAt(0, 100, 0).getLocation();
 
-		if (world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
-			if (PlayerCache.getIslandSizeCache(p.getUniqueId()) == 1) {
-				for (int x = (loc.getBlockX() - 50); x <= (loc.getBlockX() + 50); x++) {
-					for (int z = (loc.getBlockZ() - 50); z <= (loc.getBlockZ() + 50); z++) {
-						for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
-							Location l = new Location(loc.getWorld(), x, y, z);
-							blocks.add(l.getBlock());
-						}
-					}
-				}
-			} else if (PlayerCache.getIslandSizeCache(ownerUUID) == 2) {
-				for (int x = (loc.getBlockX() - 60); x <= (loc.getBlockX() + 60); x++) {
-					for (int z = (loc.getBlockZ() - 60); z <= (loc.getBlockZ() + 60); z++) {
-						for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
-							Location l = new Location(loc.getWorld(), x, y, z);
-							blocks.add(l.getBlock());
-						}
-					}
-				}
-			} else if (PlayerCache.getIslandSizeCache(ownerUUID) == 3) {
-				for (int x = (loc.getBlockX() - 70); x <= (loc.getBlockX() + 70); x++) {
-					for (int z = (loc.getBlockZ() - 70); z <= (loc.getBlockZ() + 70); z++) {
-						for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
-							Location l = new Location(loc.getWorld(), x, y, z);
-							blocks.add(l.getBlock());
-						}
-					}
-				}
-			} else if (PlayerCache.getIslandSizeCache(ownerUUID) == 4) {
-				for (int x = (loc.getBlockX() - 80); x <= (loc.getBlockX() + 80); x++) {
-					for (int z = (loc.getBlockZ() - 80); z <= (loc.getBlockZ() + 80); z++) {
-						for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
-							Location l = new Location(loc.getWorld(), x, y, z);
-							blocks.add(l.getBlock());
-						}
-					}
-				}
-			} else if (PlayerCache.getIslandSizeCache(ownerUUID) == 5) {
-				for (int x = (loc.getBlockX() - 90); x <= (loc.getBlockX() + 90); x++) {
-					for (int z = (loc.getBlockZ() - 90); z <= (loc.getBlockZ() + 90); z++) {
-						for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
-							Location l = new Location(loc.getWorld(), x, y, z);
-							blocks.add(l.getBlock());
-						}
-					}
-				}
-			}
-		} else {
-			if (PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
-				if (PlayerCache.getIslandSizeCache(ownerUUID) == 1) {
+			ArrayList<Block> blocks = new ArrayList<Block>();
+
+			if (world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
+				if (PlayerCache.getIslandSizeCache(p.getUniqueId()) == 1) {
 					for (int x = (loc.getBlockX() - 50); x <= (loc.getBlockX() + 50); x++) {
 						for (int z = (loc.getBlockZ() - 50); z <= (loc.getBlockZ() + 50); z++) {
 							for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
@@ -254,14 +213,63 @@ public class IslandBuildListener implements Listener {
 					}
 				}
 			} else {
-				p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+				if (PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
+					if (PlayerCache.getIslandSizeCache(ownerUUID) == 1) {
+						for (int x = (loc.getBlockX() - 50); x <= (loc.getBlockX() + 50); x++) {
+							for (int z = (loc.getBlockZ() - 50); z <= (loc.getBlockZ() + 50); z++) {
+								for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
+									Location l = new Location(loc.getWorld(), x, y, z);
+									blocks.add(l.getBlock());
+								}
+							}
+						}
+					} else if (PlayerCache.getIslandSizeCache(ownerUUID) == 2) {
+						for (int x = (loc.getBlockX() - 60); x <= (loc.getBlockX() + 60); x++) {
+							for (int z = (loc.getBlockZ() - 60); z <= (loc.getBlockZ() + 60); z++) {
+								for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
+									Location l = new Location(loc.getWorld(), x, y, z);
+									blocks.add(l.getBlock());
+								}
+							}
+						}
+					} else if (PlayerCache.getIslandSizeCache(ownerUUID) == 3) {
+						for (int x = (loc.getBlockX() - 70); x <= (loc.getBlockX() + 70); x++) {
+							for (int z = (loc.getBlockZ() - 70); z <= (loc.getBlockZ() + 70); z++) {
+								for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
+									Location l = new Location(loc.getWorld(), x, y, z);
+									blocks.add(l.getBlock());
+								}
+							}
+						}
+					} else if (PlayerCache.getIslandSizeCache(ownerUUID) == 4) {
+						for (int x = (loc.getBlockX() - 80); x <= (loc.getBlockX() + 80); x++) {
+							for (int z = (loc.getBlockZ() - 80); z <= (loc.getBlockZ() + 80); z++) {
+								for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
+									Location l = new Location(loc.getWorld(), x, y, z);
+									blocks.add(l.getBlock());
+								}
+							}
+						}
+					} else if (PlayerCache.getIslandSizeCache(ownerUUID) == 5) {
+						for (int x = (loc.getBlockX() - 90); x <= (loc.getBlockX() + 90); x++) {
+							for (int z = (loc.getBlockZ() - 90); z <= (loc.getBlockZ() + 90); z++) {
+								for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
+									Location l = new Location(loc.getWorld(), x, y, z);
+									blocks.add(l.getBlock());
+								}
+							}
+						}
+					}
+				} else {
+					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+				}
 			}
-		}
 
-		if (!blocks.contains(breakedBlock)) {
-			e.setCancelled(true);
-			p.playSound(p.getLocation(), Sound.BLOCK_CHAIN_HIT, 1.0F, 1.0F);
-			p.spawnParticle(Particle.SMOKE_NORMAL, breakedBlock.getLocation(), 1);
+			if (!blocks.contains(breakedBlock)) {
+				e.setCancelled(true);
+				p.playSound(p.getLocation(), Sound.BLOCK_CHAIN_HIT, 1.0F, 1.0F);
+				p.spawnParticle(Particle.SMOKE_NORMAL, breakedBlock.getLocation(), 1);
+			}
 		}
 	}
 
@@ -272,17 +280,21 @@ public class IslandBuildListener implements Listener {
 			Player p = (Player) e.getVehicle();
 			World world = p.getWorld();
 
-			UUID ownerUUID = UUID.fromString(world.getName());
+			if (!world.getName().equals("Hub") && !world.getName().equals("Wald") && !world.getName().equals("End")
+					&& !world.getName().equals("Mine") && !world.getName().equals("Nether")
+					&& !world.getName().equals("Quelle")) {
+				UUID ownerUUID = UUID.fromString(world.getName());
 
-			if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
-				try {
-					if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
+				if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
+					try {
+						if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
+							e.setCancelled(true);
+							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+						}
+					} catch (NullPointerException nullPointerException) {
 						e.setCancelled(true);
 						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 					}
-				} catch (NullPointerException nullPointerException) {
-					e.setCancelled(true);
-					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 				}
 			}
 		} catch (Exception exception) {
@@ -296,17 +308,21 @@ public class IslandBuildListener implements Listener {
 			Player p = (Player) e.getAttacker();
 			World world = p.getWorld();
 
-			UUID ownerUUID = UUID.fromString(world.getName());
+			if (!world.getName().equals("Hub") && !world.getName().equals("Wald") && !world.getName().equals("End")
+					&& !world.getName().equals("Mine") && !world.getName().equals("Nether")
+					&& !world.getName().equals("Quelle")) {
+				UUID ownerUUID = UUID.fromString(world.getName());
 
-			if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
-				try {
-					if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
+				if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
+					try {
+						if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
+							e.setCancelled(true);
+							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+						}
+					} catch (NullPointerException nullPointerException) {
 						e.setCancelled(true);
 						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 					}
-				} catch (NullPointerException nullPointerException) {
-					e.setCancelled(true);
-					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 				}
 			}
 		} catch (Exception exception) {
@@ -320,17 +336,21 @@ public class IslandBuildListener implements Listener {
 			Player p = (Player) e.getEntered();
 			World world = p.getWorld();
 
-			UUID ownerUUID = UUID.fromString(world.getName());
+			if (!world.getName().equals("Hub") && !world.getName().equals("Wald") && !world.getName().equals("End")
+					&& !world.getName().equals("Mine") && !world.getName().equals("Nether")
+					&& !world.getName().equals("Quelle")) {
+				UUID ownerUUID = UUID.fromString(world.getName());
 
-			if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
-				try {
-					if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
+				if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
+					try {
+						if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
+							e.setCancelled(true);
+							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+						}
+					} catch (NullPointerException nullPointerException) {
 						e.setCancelled(true);
 						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 					}
-				} catch (NullPointerException nullPointerException) {
-					e.setCancelled(true);
-					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 				}
 			}
 		} catch (Exception exception) {
@@ -343,18 +363,22 @@ public class IslandBuildListener implements Listener {
 		Player p = e.getPlayer();
 		World world = p.getWorld();
 
-		UUID ownerUUID = UUID.fromString(world.getName());
+		if (!world.getName().equals("Hub") && !world.getName().equals("Wald") && !world.getName().equals("End")
+				&& !world.getName().equals("Mine") && !world.getName().equals("Nether")
+				&& !world.getName().equals("Quelle")) {
+			UUID ownerUUID = UUID.fromString(world.getName());
 
-		if (e.getRightClicked().getType() == EntityType.ITEM_FRAME) {
-			if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
-				if (PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID) != null) {
-					if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
+			if (e.getRightClicked().getType() == EntityType.ITEM_FRAME) {
+				if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
+					if (PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID) != null) {
+						if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
+							e.setCancelled(true);
+							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+						}
+					} else {
 						e.setCancelled(true);
 						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 					}
-				} else {
-					e.setCancelled(true);
-					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 				}
 			}
 		}
@@ -368,17 +392,21 @@ public class IslandBuildListener implements Listener {
 			Player p = (Player) e.getRemover();
 			World world = p.getWorld();
 
-			UUID ownerUUID = UUID.fromString(world.getName());
+			if (!world.getName().equals("Hub") && !world.getName().equals("Wald") && !world.getName().equals("End")
+					&& !world.getName().equals("Mine") && !world.getName().equals("Nether")
+					&& !world.getName().equals("Quelle")) {
+				UUID ownerUUID = UUID.fromString(world.getName());
 
-			if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
-				if (PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID) != null) {
-					if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
+				if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
+					if (PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID) != null) {
+						if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
+							e.setCancelled(true);
+							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+						}
+					} else {
 						e.setCancelled(true);
 						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 					}
-				} else {
-					e.setCancelled(true);
-					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 				}
 			}
 		}
@@ -391,20 +419,24 @@ public class IslandBuildListener implements Listener {
 			Player p = e.getPlayer();
 			World world = p.getWorld();
 
-			UUID ownerUUID = UUID.fromString(world.getName());
+			if (!world.getName().equals("Hub") && !world.getName().equals("Wald") && !world.getName().equals("End")
+					&& !world.getName().equals("Mine") && !world.getName().equals("Nether")
+					&& !world.getName().equals("Quelle")) {
+				UUID ownerUUID = UUID.fromString(world.getName());
 
-			if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
-				try {
-					if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
+				if (!world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
+					try {
+						if (!PlayerCache.getCoopPlayerCacheUUIDs(ownerUUID).contains(p.getUniqueId().toString())) {
+							e.setCancelled(true);
+							if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.LEFT_CLICK_AIR) {
+								p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+							}
+						}
+					} catch (NullPointerException nullPointerException) {
 						e.setCancelled(true);
 						if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.LEFT_CLICK_AIR) {
 							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 						}
-					}
-				} catch (NullPointerException nullPointerException) {
-					e.setCancelled(true);
-					if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.LEFT_CLICK_AIR) {
-						p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
 					}
 				}
 			}
