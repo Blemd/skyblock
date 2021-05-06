@@ -33,7 +33,6 @@ public class QuestAPI {
 				pst.setString(1, list);
 				pst.setString(2, uuid.toString());
 				pst.executeUpdate();
-				pst.close();
 			} catch (SQLException sqlException) {
 				sqlException.printStackTrace();
 			}
@@ -53,7 +52,6 @@ public class QuestAPI {
 
 				PreparedStatement pst = this.mysql.getConnection().prepareStatement("INSERT INTO " + this.mysql.getTable() + "_quest(uuid, completedquests) VALUES ('" + uuid.toString() + "','" + list + "')");
 				pst.executeUpdate();
-				pst.close();
 			} catch (SQLException sqlException) {
 				sqlException.printStackTrace();
 			}

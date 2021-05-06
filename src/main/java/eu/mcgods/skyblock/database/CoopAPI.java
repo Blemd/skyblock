@@ -80,13 +80,11 @@ public class CoopAPI {
 					pst.setString(1, list);
 					pst.setString(2, uuid.toString());
 					pst.executeUpdate();
-					pst.close();
 				} else {
 					PreparedStatement pst = this.mysql.getConnection().prepareStatement("UPDATE " + this.mysql.getTable() + "_coop SET memberlist = ? WHERE world = ?");
 					pst.setString(1, null);
 					pst.setString(2, uuid.toString());
 					pst.executeUpdate();
-					pst.close();
 				}
 			} catch (SQLException sqlException) {
 				sqlException.printStackTrace();
@@ -106,7 +104,6 @@ public class CoopAPI {
 					
 					PreparedStatement pst = this.mysql.getConnection().prepareStatement("INSERT INTO " + this.mysql.getTable() + "_coop(world, memberlist) VALUES ('" + uuid.toString() + "','" + list + "')");
 					pst.executeUpdate();
-					pst.close();
 				}
 			} catch (SQLException sqlException) {
 				sqlException.printStackTrace();

@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 import java.util.UUID;
 
 public class MySQL {
@@ -22,16 +21,10 @@ public class MySQL {
 	// Connect to database
 	public void connect() {
 		
-		final Properties prop = new Properties();
-		prop.setProperty("user", this.userName);
-		prop.setProperty("password", this.passWord);
-		prop.setProperty("useSSL", "false");
-		prop.setProperty("autoReconnect", "true");
-		
 		if (!isConnected()) {
 			try {
-				this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + dataBase, prop);
-				System.out.println("Die MySQL Verbindung konnte erfolgreich hergestellt werden!");
+				this.connection = DriverManager.getConnection("jdbc:mysql://" + this.host + ":" + this.port + "/" + this.dataBase 
+						+ "?useJDBCCompliantTimezoneShift=true&&serverTimezone=UTC&&useUnicode=true&autoReconnect=true", this.userName, this.passWord);
 			} catch (SQLException sqlException) {
 				sqlException.printStackTrace();
 			}
@@ -53,29 +46,13 @@ public class MySQL {
 	// Automatic creation of tables if none are available
 	public void createTable() {
 		try {
-			this.connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + this.table + "_islandbank (ID INT PRIMARY KEY AUTO_INCREMENT, world VARCHAR(100), amount INT(16))").executeUpdate();
 			this.connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + this.table + "_skycoins (ID INT PRIMARY KEY AUTO_INCREMENT, uuid VARCHAR(100), amount INT(16))").executeUpdate();
-			this.connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + this.table + "_inventar (ID INT PRIMARY KEY AUTO_INCREMENT, uuid VARCHAR(100), inventar TEXT(1431655765))").executeUpdate();
+			this.connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + this.table + "_inventory (ID INT PRIMARY KEY AUTO_INCREMENT, uuid VARCHAR(100), inv TEXT(1431655765))").executeUpdate();
 			this.connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + this.table + "_quest (ID INT PRIMARY KEY AUTO_INCREMENT, uuid VARCHAR(100), completedquests LONGTEXT)").executeUpdate();
 			this.connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + this.table + "_coop (ID INT PRIMARY KEY AUTO_INCREMENT, world VARCHAR(100), memberlist TEXT(1431655765))").executeUpdate();
 			this.connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + this.table + "_islandsize (ID INT PRIMARY KEY AUTO_INCREMENT, uuid VARCHAR(100), size INT(16))").executeUpdate();
-//			this.connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + this.table + "_userlog (ID INT PRIMARY KEY AUTO_INCREMENT, uuid VARCHAR(100), ip VARCHAR(100), lastlogin TIMESTAMP(), lastlogout TIMESTAMP(), messsages LONGTEXT").executeUpdate();
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		}
-	}
-	
-	// Check if user already has a entry in bank database
-	public boolean checkIfUserHasAlReadyBankData(UUID uuid) {
-		try {
-			PreparedStatement pst = this.connection.prepareStatement("SELECT UUID FROM " + this.table + "_bank WHERE UUID = ?");
-			pst.setString(1, uuid.toString());
-			ResultSet rs = pst.executeQuery();
-			
-			return rs.next();
-		} catch (SQLException sqlException) {
-			sqlException.printStackTrace();
-			return false;
 		}
 	}
 	
@@ -95,7 +72,7 @@ public class MySQL {
 	
 	public boolean checkIfUserHasAlReadyInventoryData(UUID uuid) {
 		try {
-			PreparedStatement pst = this.connection.prepareStatement("SELECT UUID FROM " + this.table + "_inventar WHERE UUID = ?");
+			PreparedStatement pst = this.connection.prepareStatement("SELECT UUID FROM " + this.table + "_inventory WHERE UUID = ?");
 			pst.setString(1, uuid.toString());
 			ResultSet rs = pst.executeQuery();
 			

@@ -23,11 +23,10 @@ public class InventoryAPI {
 			try {
 				Player p = Bukkit.getPlayer(uuid);
 				String saveData = String.valueOf(InventorySave.toBase64((Inventory) p.getInventory())) + ";" + InventorySave.itemStackArrayToBase64(p.getInventory().getArmorContents());
-				PreparedStatement pst = this.mysql.getConnection().prepareStatement("UPDATE " + this.mysql.getTable() + "_inventar SET inventar = ? WHERE UUID = ?");
+				PreparedStatement pst = this.mysql.getConnection().prepareStatement("UPDATE " + this.mysql.getTable() + "_inventory SET inv = ? WHERE UUID = ?");
 				pst.setString(1, saveData);
 				pst.setString(2, uuid.toString());
 				pst.executeUpdate();
-				pst.close();
 			} catch (SQLException sqlException) {
 				sqlException.printStackTrace();
 			}
@@ -35,9 +34,8 @@ public class InventoryAPI {
 			try {
 				Player p = Bukkit.getPlayer(uuid);
 				String saveData = String.valueOf(InventorySave.toBase64((Inventory) p.getInventory())) + ";" + InventorySave.itemStackArrayToBase64(p.getInventory().getArmorContents());
-				PreparedStatement pst = this.mysql.getConnection().prepareStatement("INSERT INTO " + this.mysql.getTable() + "_inventar(UUID, inventar) VALUES ('" + uuid.toString() + "', '" + saveData + "');");
+				PreparedStatement pst = this.mysql.getConnection().prepareStatement("INSERT INTO " + this.mysql.getTable() + "_inventory(UUID, inv) VALUES ('" + uuid.toString() + "', '" + saveData + "');");
 				pst.executeUpdate();
-				pst.close();
 			} catch (SQLException sqlException) {
 				sqlException.printStackTrace();
 			}
@@ -48,22 +46,20 @@ public class InventoryAPI {
 		if (this.mysql.checkIfUserHasAlReadyInventoryData(uuid)) {
 			try {
 				String saveData = String.valueOf(InventorySave.itemStackArrayToBase64(items) + ";" + InventorySave.itemStackArrayToBase64(armor));
-				PreparedStatement pst = this.mysql.getConnection().prepareStatement("UPDATE " + this.mysql.getTable() + "_inventar SET inventar = ? WHERE UUID = ?");
+				PreparedStatement pst = this.mysql.getConnection().prepareStatement("UPDATE " + this.mysql.getTable() + "_inventory SET inv= ? WHERE UUID = ?");
 				pst.setString(1, saveData);
 				pst.setString(2, uuid.toString());
 				pst.executeUpdate();
-				pst.close();
 			} catch (SQLException sqlException) {
 				sqlException.printStackTrace();
 			}
 		} else {
 			try {
 				String saveData = String.valueOf(InventorySave.itemStackArrayToBase64(items) + ";" + InventorySave.itemStackArrayToBase64(armor));
-				PreparedStatement pst = this.mysql.getConnection().prepareStatement("INSERT INTO " + this.mysql.getTable() + "_inventar SET inventar = ? WHERE UUID = ?");
+				PreparedStatement pst = this.mysql.getConnection().prepareStatement("INSERT INTO " + this.mysql.getTable() + "_inventory SET inv = ? WHERE UUID = ?");
 				pst.setString(1, saveData);
 				pst.setString(2, uuid.toString());
 				pst.executeUpdate();
-				pst.close();
 			} catch (SQLException sqlException) {
 				sqlException.printStackTrace();
 			}
@@ -72,11 +68,11 @@ public class InventoryAPI {
 
 	public String getInv(UUID uuid) {
 		try {
-			PreparedStatement pst = this.mysql.getConnection().prepareStatement("SELECT inventar FROM " + this.mysql.getTable() + "_inventar WHERE UUID = ?");
+			PreparedStatement pst = this.mysql.getConnection().prepareStatement("SELECT inv FROM " + this.mysql.getTable() + "_inventory WHERE UUID = ?");
 			pst.setString(1, uuid.toString());
 			ResultSet rs = pst.executeQuery();
 			if (rs.next()) {
-				return rs.getString("inventar");
+				return rs.getString("inv");
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
