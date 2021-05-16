@@ -110,4 +110,21 @@ public class CoopAPI {
 			}
 		}
 	}
+	
+	
+	public ArrayList<UUID> getAllCoopData() {
+		try {
+			PreparedStatement pst = mysql.getConnection().prepareStatement("SELECT * FROM " + mysql.getTable() + "_coop");
+			ResultSet rs = pst.executeQuery();
+			
+			ArrayList<UUID> uuids = new ArrayList<UUID>();
+			while(rs.next()) {
+				uuids.add(UUID.fromString(rs.getString("world")));
+			}
+			return uuids;
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+		return null;
+	}
 }

@@ -61,7 +61,7 @@ public class IslandNpcListener implements Listener {
 									p.closeInventory();
 									p.sendMessage(m.getPrefix() + "Deine Insel wird generiert...");
 									PlayerCache.removeSkyCoinsCache(uuid, 1000);
-									IslandGenerator.generateIsland(uuid.toString(), Difficulty.EASY, 16*25D);
+									IslandGenerator.generateIsland(uuid.toString(), Difficulty.EASY, 16*40D);
 									PlayerCache.setIslandSizeCache(uuid, 1);
 									p.teleport(Bukkit.getWorld(uuid.toString()).getSpawnLocation());
 									p.sendMessage(m.getPrefix() + "Deine Insel wurde generiert.");

@@ -21,9 +21,11 @@ public class DeathAndRespawnListener implements Listener {
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
 
+		e.setDeathMessage(null);
+		
 		Player p = e.getEntity();
 		World world = p.getWorld();
-
+		
 		if (!world.getName().equals("Hub") && !world.getName().equals("Wald") && !world.getName().equals("End")
 				&& !world.getName().equals("Mine") && !world.getName().equals("Nether")
 				&& !world.getName().equals("Quelle")) {
@@ -64,6 +66,8 @@ public class DeathAndRespawnListener implements Listener {
 
 			Player p = e.getPlayer();
 
+			p.teleport(p.getWorld().getSpawnLocation());
+			
 			if (p.getInventory().getItem(8) == null) {
 				p.getInventory().setItem(8, itemBuilder.createSkullWithOutLore(1, p.getName(), "§7✦ §a§lSkyBlock §7✦"));
 			}

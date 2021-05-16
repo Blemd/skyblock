@@ -144,6 +144,10 @@ public class PlayerCache {
 
 	// Setter & Getter for CoopPlayerCache
 
+	public static Map<UUID, List<String>> getCoopCacheMap() {
+		return coop;
+	}
+	
 	public static void addCoopPlayerCache(UUID uuid, String targetUUID) {
 		if (!(coop.get(uuid).size() >= 4) && !coop.get(uuid).contains(targetUUID)) {
 			coop.get(uuid).add(targetUUID);

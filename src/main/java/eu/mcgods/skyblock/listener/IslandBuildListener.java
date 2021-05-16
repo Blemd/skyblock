@@ -28,7 +28,9 @@ public class IslandBuildListener implements Listener {
 
 	@EventHandler
 	public void PlaceBlockOnIsland(BlockPlaceEvent e) {
-
+		
+		try {
+		
 		Player p = e.getPlayer();
 		World world = p.getWorld();
 		Block checkBlock = e.getBlockAgainst();
@@ -43,7 +45,7 @@ public class IslandBuildListener implements Listener {
 			ArrayList<Location> locs = new ArrayList<Location>();
 
 			if (world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
-				if (PlayerCache.getIslandSizeCache(p.getUniqueId()) == 1) {
+				if (PlayerCache.getIslandSizeCache(ownerUUID) == 1) {
 					for (int x = (loc.getBlockX() - 50); x <= (loc.getBlockX() + 50); x++) {
 						for (int z = (loc.getBlockZ() - 50); z <= (loc.getBlockZ() + 50); z++) {
 							for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
@@ -145,13 +147,17 @@ public class IslandBuildListener implements Listener {
 				e.setCancelled(true);
 				p.playSound(p.getLocation(), Sound.BLOCK_CHAIN_HIT, 1.0F, 1.0F);
 				p.spawnParticle(Particle.SMOKE_NORMAL, checkBlock.getLocation(), 1);
+				}
 			}
+		} catch (NullPointerException nullPointerException) {
 		}
 	}
 
 	@EventHandler
 	public void BreakBlockOnIsland(BlockBreakEvent e) {
 
+		try {
+		
 		Player p = e.getPlayer();
 		Block breakedBlock = e.getBlock();
 		World world = breakedBlock.getWorld();
@@ -166,7 +172,7 @@ public class IslandBuildListener implements Listener {
 			ArrayList<Block> blocks = new ArrayList<Block>();
 
 			if (world.getName().equalsIgnoreCase(p.getUniqueId().toString())) {
-				if (PlayerCache.getIslandSizeCache(p.getUniqueId()) == 1) {
+				if (PlayerCache.getIslandSizeCache(ownerUUID) == 1) {
 					for (int x = (loc.getBlockX() - 50); x <= (loc.getBlockX() + 50); x++) {
 						for (int z = (loc.getBlockZ() - 50); z <= (loc.getBlockZ() + 50); z++) {
 							for (int y = (loc.getBlockY() - 100); y <= (loc.getBlockY() + 100); y++) {
@@ -271,7 +277,9 @@ public class IslandBuildListener implements Listener {
 				p.spawnParticle(Particle.SMOKE_NORMAL, breakedBlock.getLocation(), 1);
 			}
 		}
+	} catch (NullPointerException nullPointerException) {
 	}
+}
 
 	@EventHandler
 	public void placeVehicleOnIsland(VehicleCreateEvent e) {

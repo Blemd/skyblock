@@ -1,5 +1,10 @@
 package eu.mcgods.skyblock.main;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -13,6 +18,7 @@ import eu.mcgods.skyblock.commands.SetLocationCommand;
 import eu.mcgods.skyblock.commands.VisitCommand;
 import eu.mcgods.skyblock.commands.isCommand;
 import eu.mcgods.skyblock.commands.sbCommand;
+import eu.mcgods.skyblock.database.CoopAPI;
 import eu.mcgods.skyblock.database.MySQL;
 import eu.mcgods.skyblock.database.PlayerCache;
 import eu.mcgods.skyblock.listener.ChatDesignListener;
@@ -41,6 +47,8 @@ public class SkyBlock extends JavaPlugin {
 	
 	public MySQL mySQL = new MySQL();
 	
+	private CoopAPI coopAPI;
+	
 	@Override
 	public void onEnable() {
 		
@@ -51,6 +59,8 @@ public class SkyBlock extends JavaPlugin {
 		this.mySQL.connect();
 		this.mySQL.createTable();
 		
+		coopAPI = new CoopAPI();
+		
 		this.loadListener();
 		this.loadCommands();
 		
@@ -59,6 +69,15 @@ public class SkyBlock extends JavaPlugin {
 			ScoreBoard.updateScoreboard(allOnline.getUniqueId());
 			ScoreBoard.updateTablist(allOnline.getUniqueId());
 		}
+		
+		for(int i = 0; i < coopAPI.getAllCoopData().size(); i++) {
+			UUID userUUID = coopAPI.getAllCoopData().get(i);
+			String[] coopMember = coopAPI.getCoopPartners(userUUID, userUUID.toString()).split("\\;");
+			List<String> coopMemberList = new ArrayList<String>();
+			coopMemberList.addAll(Arrays.asList(coopMember));
+			PlayerCache.getCoopCacheMap().put(userUUID, coopMemberList);
+		}
+		
 		System.out.println(this.prefix + "§cCreated §e" + Bukkit.getOnlinePlayers().size() + " §cnew PlayerCache's!");
 		
 		new BukkitRunnable() {

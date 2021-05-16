@@ -21,17 +21,17 @@ public class ChatDesignListener implements Listener {
 			String message = e.getMessage();
 
 			if (LuckPermsProvider.get().getUserManager().getUser(uuid).getPrimaryGroup().equalsIgnoreCase("Admin")) {
-				e.setFormat(String.format("§4§lAdmin §8|§c %s§8: §7%s", p.getName(), message));
+				e.setFormat(String.format("§4§lAdmin §8|§c %s§8: §7%s", p.getName(), message.replace("%", "%%")));
 			} else if (LuckPermsProvider.get().getUserManager().getUser(uuid).getPrimaryGroup().equalsIgnoreCase("Developer")) {
-				e.setFormat(String.format("§3§lDev §8|§b %s§8: §7%s", p.getName(), message));
+				e.setFormat(String.format("§3§lDev §8|§b %s§8: §7%s", p.getName(), message.replace("%", "%%")));
 			} else if (LuckPermsProvider.get().getUserManager().getUser(uuid).getPrimaryGroup().equalsIgnoreCase("Supporter")) {
-				e.setFormat(String.format("§1§lSupporter §8|§9 %s§8: §7%s", p.getName(), message));
+				e.setFormat(String.format("§1§lSupporter §8|§9 %s§8: §7%s", p.getName(), message.replace("%", "%%")));
 			} else if (LuckPermsProvider.get().getUserManager().getUser(uuid).getPrimaryGroup().equalsIgnoreCase("Builder")) {
-				e.setFormat(String.format("§2§lBuilder §8|§a %s§8: §7%s", p.getName(), message));
+				e.setFormat(String.format("§2§lBuilder §8|§a %s§8: §7%s", p.getName(), message.replace("%", "%%")));
 			} else if (LuckPermsProvider.get().getUserManager().getUser(uuid).getPrimaryGroup().equalsIgnoreCase("VIP")) {
-				e.setFormat(String.format("§6§lVIP §8|§e %s§8: §7%s", p.getName(), message));
+				e.setFormat(String.format("§6§lVIP §8|§e %s§8: §7%s", p.getName(), message.replace("%", "%%")));
 			} else {
-				e.setFormat(String.format("§7§lSpieler §8|§7 %s§8: §7%s", p.getName(), message));
+				e.setFormat(String.format("§7§lSpieler §8|§7 %s§8: §7%s", p.getName(), message.replace("%", "%%")));
 			}
 		} catch (NullPointerException nullPointerException) {
 		}

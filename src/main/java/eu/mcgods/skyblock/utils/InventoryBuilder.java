@@ -16,16 +16,16 @@ public class InventoryBuilder {
 
 	private Inventory skyBlockMenu;
 	
-	private Inventory skyBlockMenu_islandManage = Bukkit.createInventory(null, 9, "§2Insel-Verwalten");
-	private Inventory skyBlockMenu_islandManage_CoopList = Bukkit.createInventory(null, 9, "§2Insel-Verwalten");
-	private Inventory skyBlockMenu_islandManage_CoopRemove = Bukkit.createInventory(null, 9, "§2Insel-Verwalten");
+	private Inventory skyBlockMenu_islandManage;
+	private Inventory skyBlockMenu_islandManage_CoopList;
+	private Inventory skyBlockMenu_islandManage_CoopRemove;
 	
-	private Inventory skyBlockMenu_IslandUpgrades = Bukkit.createInventory(null, 9, "§2Insel-Upgrades");
-	private Inventory skyBlockMenu_IslandUpgrades_IslandBorder = Bukkit.createInventory(null, 9, "§2Insel-Upgrades");
+	private Inventory skyBlockMenu_IslandUpgrades;
+	private Inventory skyBlockMenu_IslandUpgrades_IslandBorder;
 	
-	private Inventory skyBlockMenu_Quests = Bukkit.createInventory(null, 9, "§4Quests");
-	private Inventory skyBlockMenu_Quests_Easy = Bukkit.createInventory(null, 3 * 9, "§aEinfache Quests");
-	private Inventory skyBlockMenu_Quests_Mid = Bukkit.createInventory(null, 3 * 9, "§eMittlere Quests");
+	private Inventory skyBlockMenu_Quests;
+	private Inventory skyBlockMenu_Quests_Easy;
+	private Inventory skyBlockMenu_Quests_Mid;
 //	private Inventory skyBlockMenu_Quests_Hard = Bukkit.createInventory(null, 3 * 9, "§cSchwere Quests");
 	
 	private Inventory skyBlockMenu_FastTravel = Bukkit.createInventory(null, 9, "§3Schnellreise");
@@ -65,6 +65,8 @@ public class InventoryBuilder {
 
 	public void loadSkyBlockMenu_IslandManage(Player p) {
 
+		this.skyBlockMenu_islandManage = Bukkit.createInventory(null, 9, "§2Insel-Verwalten");
+		
 		for (int i = 0; i <= 8; i++) {
 			if (i != 3 && i != 4 && i != 5) {
 				this.skyBlockMenu_islandManage.setItem(i, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
@@ -78,7 +80,9 @@ public class InventoryBuilder {
 	}
 
 	public void loadSkyBlockMenu_IslandManage_CoopList(Player p) {
-
+		
+		this.skyBlockMenu_islandManage_CoopList = Bukkit.createInventory(null, 9, "§2Insel-Verwalten");
+		
 		this.skyBlockMenu_islandManage_CoopList.clear();
 		
 		for (int i = 0; i <= 8; i++) {
@@ -170,6 +174,8 @@ public class InventoryBuilder {
 	
 	public void loadSkyBlockMenu_IslandManage_CoopRemove(Player p) {
 		
+		this.skyBlockMenu_islandManage_CoopRemove = Bukkit.createInventory(null, 9, "§2Insel-Verwalten");
+		
 		for(int i = 0; i <= 8; i++) {
 			if(i != 3 && i != 5) {
 				this.skyBlockMenu_islandManage_CoopRemove.setItem(i, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
@@ -183,6 +189,8 @@ public class InventoryBuilder {
 	}
 	
 	public void loadSkyBlockMenu_IslandUpgrades(Player p) {
+		
+		this.skyBlockMenu_IslandUpgrades = Bukkit.createInventory(null, 9, "§2Insel-Upgrades");
 		
 		for(int i = 0; i <= 8; i++) {
 			if(i != 3 && i != 4 && i != 5) {
@@ -198,6 +206,8 @@ public class InventoryBuilder {
 	}
 
 	public void loadSkyBlockMenu_IslandUpgrades_IslandBorder(Player p) {
+		
+		this.skyBlockMenu_IslandUpgrades_IslandBorder = Bukkit.createInventory(null, 9, "§2Insel-Upgrades");
 		
 		for(int i = 0; i <= 8; i++) {
 			if(i != 2 && i != 3 && i != 4 && i != 5) {
@@ -237,6 +247,8 @@ public class InventoryBuilder {
 	
 	public void loadSkyBlockMenu_Quests(Player p) {
 		
+		this.skyBlockMenu_Quests = Bukkit.createInventory(null, 9, "§4Quests");
+		
 		for(int i = 0; i <= 8; i++) {
 			if(i != 2 && i != 4 && i != 6) {
 				this.skyBlockMenu_Quests.setItem(i, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
@@ -269,6 +281,9 @@ public class InventoryBuilder {
 	}
 	
 	public void loadSkyBlockMenu_Quests_Easy(Player p) {
+		
+		this.skyBlockMenu_Quests_Easy = Bukkit.createInventory(null, 3 * 9, "§aEinfache Quests");
+		
 		for(int i = 0; i <= 26; i++) {
 			if(i != 0 && i != 2 && i != 4 && i != 6 && i != 8 && i != 10 && i != 16 && i != 20 && i != 22 && i != 24) {
 				this.skyBlockMenu_Quests_Easy.setItem(i, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
@@ -342,6 +357,9 @@ public class InventoryBuilder {
 }
 	
 	public void loadSkyBlockMenu_Quests_Mid(Player p) {
+		
+		this.skyBlockMenu_Quests_Mid = Bukkit.createInventory(null, 3 * 9, "§eMittlere Quests");
+		
 		for(int i = 0; i <= 26; i++) {
 			if(i != 0 && i != 2 && i != 4 && i != 6 && i != 8 && i != 10 && i != 16 && i != 20 && i != 22 && i != 24) {
 				this.skyBlockMenu_Quests_Mid.setItem(i, itemBuilder.createItemWithOutLore(Material.BLACK_STAINED_GLASS_PANE, 1, " "));
